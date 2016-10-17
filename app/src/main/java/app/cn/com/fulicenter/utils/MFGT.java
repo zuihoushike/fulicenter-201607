@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 
 
-import app.cn.com.fulicenter.MainActivity;
+import app.cn.com.fulicenter.activity.MainActivity;
 import app.cn.com.fulicenter.R;
 
 /**

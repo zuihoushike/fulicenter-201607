@@ -1,9 +1,10 @@
-package app.cn.com.fulicenter;
+package app.cn.com.fulicenter.activity;
 
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 
+import app.cn.com.fulicenter.R;
 import app.cn.com.fulicenter.utils.MFGT;
 
 

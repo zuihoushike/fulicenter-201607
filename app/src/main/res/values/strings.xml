@@ -7,5 +7,6 @@
     <string name="load_more">load more</string>
 
     <string name="title_activity_splash">SplashActivity</string>
+    <string name="title_activity_shopping">ShoppingActivity</string>
 
 </resources>
