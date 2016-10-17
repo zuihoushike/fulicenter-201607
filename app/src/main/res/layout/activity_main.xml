@@ -30,6 +30,7 @@
         <RadioButton
             android:id="@+id/conversation"
             android:drawableTop="@mipmap/menu_item_conversation_normal"
+            style="@style/style_menu_item"
             android:text="分类"
             android:button="@null"
             android:textColor="@color/main_botton_text_color"
