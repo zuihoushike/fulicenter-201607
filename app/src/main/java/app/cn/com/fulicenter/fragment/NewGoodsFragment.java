@@ -36,7 +36,7 @@ public class NewGoodsFragment extends Fragment {
 
     @BindView(R.id.tv_refresh)
     TextView tvRefresh;
-    @BindView(R.id.rvNewGoods)
+
     RecyclerView rvNewGoods;
     @BindView(R.id.srl)
     SwipeRefreshLayout srl;
@@ -49,7 +49,7 @@ public class NewGoodsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View layout = inflater.inflate(R.layout.fragment_new_goods, container, false);
+        View layout = inflater.inflate(R.layout.fragment_newgoods, container, false);
         ButterKnife.bind(this, layout);
         mContext= (MainActivity) getContext();
         mList=new ArrayList<>();
@@ -91,6 +91,7 @@ public class NewGoodsFragment extends Fragment {
                     }else {
                         mAdapter.addData(list);
                     }
+                    mAdapter.setMore(false);
                     if (list.size()<I.PAGE_ID_DEFAULT){
                         mAdapter.setMore(false);
                     }

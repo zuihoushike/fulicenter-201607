@@ -26,11 +26,22 @@ import butterknife.ButterKnife;
 public class GoodsAdapter extends Adapter {
     List<NewGoodsBean> mlist;
     Context mContxet;
+    boolean isMore;
+
 
     public GoodsAdapter(List<NewGoodsBean> list, Context mContxet) {
         mlist = new ArrayList<>();
         mlist.addAll(list);
         this.mContxet = mContxet;
+    }
+
+    public boolean isMore() {
+        return isMore;
+    }
+
+    public void setMore(boolean more) {
+        isMore = more;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -47,7 +58,8 @@ public class GoodsAdapter extends Adapter {
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         if (getItemViewType(position)==I.TYPE_FOOTER){
-
+            FooterViewHolder vh = (FooterViewHolder) holder;
+            vh.tvFooter.setText(getFootString());
         }else {
             GoodsViewHolder vh = (GoodsViewHolder) holder;
             NewGoodsBean goods = mlist.get(position);
@@ -70,13 +82,23 @@ public class GoodsAdapter extends Adapter {
         return I.TYPE_ITEM;
     }
 
-    public void initDAta(ArrayList<NewGoodsBean> list) {
+    public void initData(ArrayList<NewGoodsBean> list) {
         if (mlist!=null){
             mlist.clear();
         }
         mlist.addAll(list);
         notifyDataSetChanged();
     }
+
+    public int getFootString(){
+        return isMore?R.string.load_more:R.string.no_more;
+    }
+
+    public void addData(ArrayList<NewGoodsBean> list) {
+        mlist.addAll(list);
+        notifyDataSetChanged();
+    }
+
 
     static class GoodsViewHolder extends ViewHolder{
         @BindView(R.id.ivGoodsThumb)
