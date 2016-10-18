@@ -1,12 +1,14 @@
 package app.cn.com.fulicenter.activity;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
 import app.cn.com.fulicenter.R;
+import app.cn.com.fulicenter.fragment.NewGoodsFragment;
 import butterknife.ButterKnife;
 
 
@@ -20,6 +22,8 @@ public class MainActivity extends Activity {
 
     int index;
     RadioButton [] rbs;
+    Fragment[] mFragment;
+    NewGoodsFragment mNewGoodsFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +31,20 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         initView();
+        iniFragment();
     }
+
+    private void iniFragment() {
+        mFragment = new Fragment[5];
+        mNewGoodsFragment = new NewGoodsFragment();
+        getSupportFragment()
+                .beginTransaction()
+                .add(R.id.fragment_container,mNewGoodsFragment)
+                .show(mNewGoodsFragment)
+                .commit();
+    }
+
+
 
     private void initView() {
         rbs = new RadioButton[5];
@@ -40,19 +57,19 @@ public class MainActivity extends Activity {
 
     public void onCheckedChang(View v){
         switch (v.getId()){
-            case R.id.new_good:
+            case R.id.layout_new_good:
                 index = 0;
                 break;
-            case R.id.boutique:
+            case R.id.layout_boutique:
                 index = 1;
                 break;
-            case R.id.conversation:
+            case R.id.layout_category:
                 index = 2;
                 break;
-            case R.id.cart:
+            case R.id.layout_cart:
                 index = 3;
                 break;
-            case R.id.personal_center:
+            case R.id.layout_personal_center:
                 index = 4;
                 break;
         }
@@ -68,4 +85,6 @@ public class MainActivity extends Activity {
             }
         }
     }
+
+
 }

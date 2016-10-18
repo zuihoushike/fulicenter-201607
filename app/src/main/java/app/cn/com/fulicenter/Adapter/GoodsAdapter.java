@@ -10,11 +10,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import app.cn.com.fulicenter.I;
 import app.cn.com.fulicenter.R;
 import app.cn.com.fulicenter.bean.NewGoodsBean;
+import app.cn.com.fulicenter.utils.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -23,20 +25,21 @@ import butterknife.ButterKnife;
  */
 public class GoodsAdapter extends Adapter {
     List<NewGoodsBean> mlist;
-    Context mcontxet;
+    Context mContxet;
 
-    public GoodsAdapter(List<NewGoodsBean> mlist, Context mcontxet) {
-        this.mlist = mlist;
-        this.mcontxet = mcontxet;
+    public GoodsAdapter(List<NewGoodsBean> list, Context mContxet) {
+        mlist = new ArrayList<>();
+        mlist.addAll(list);
+        this.mContxet = mContxet;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         ViewHolder holder = null;
         if (viewType == I.TYPE_FOOTER) {
-            holder = new FooterViewHolder(View.inflate(mcontxet,R.layout.item_footer,null));
+            holder = new FooterViewHolder(View.inflate(mContxet,R.layout.item_footer,null));
         } else {
-            holder = new GoodsViewHolder(View.inflate(mcontxet, R.layout.item_goods, null));
+            holder = new GoodsViewHolder(View.inflate(mContxet, R.layout.item_goods, null));
         }
         return holder;
     }
@@ -48,6 +51,7 @@ public class GoodsAdapter extends Adapter {
         }else {
             GoodsViewHolder vh = (GoodsViewHolder) holder;
             NewGoodsBean goods = mlist.get(position);
+            ImageLoader.downloadImg(mContxet,vh.ivGoodsThumb,goods.getGoodsThumb());
             vh.ivGoodsName.setText(goods.getGoodsName());
             vh.tvGoodsPrice.setText(goods.getCurrencyPrice());
         }
@@ -64,6 +68,14 @@ public class GoodsAdapter extends Adapter {
             return I.TYPE_FOOTER;
         }
         return I.TYPE_ITEM;
+    }
+
+    public void initDAta(ArrayList<NewGoodsBean> list) {
+        if (mlist!=null){
+            mlist.clear();
+        }
+        mlist.addAll(list);
+        notifyDataSetChanged();
     }
 
     static class GoodsViewHolder extends ViewHolder{
