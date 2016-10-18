@@ -23,6 +23,7 @@ import app.cn.com.fulicenter.utils.CommonUtils;
 import app.cn.com.fulicenter.utils.ConvertUtils;
 import app.cn.com.fulicenter.utils.L;
 import app.cn.com.fulicenter.utils.OkHttpUtils;
+import app.cn.com.fulicenter.view.SpaceItemDecoration;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import app.cn.com.fulicenter.net.NetDAO;
@@ -146,6 +147,7 @@ public class NewGoodsFragment extends Fragment {
         rvNewGoods.setLayoutManager(glm);
         rvNewGoods.setHasFixedSize(true);
         rvNewGoods.setAdapter(mAdapter);
+        rvNewGoods.addItemDecoration(new SpaceItemDecoration(12));
     }
 
 }

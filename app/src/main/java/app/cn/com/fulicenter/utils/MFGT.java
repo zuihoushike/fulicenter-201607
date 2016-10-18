@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 
 
+import app.cn.com.fulicenter.I;
 import app.cn.com.fulicenter.activity.MainActivity;
 import app.cn.com.fulicenter.R;
 
@@ -27,4 +28,5 @@ public class MFGT {
         context.overridePendingTransition(R.anim.push_left_in,R.anim.push_right_out);
         context.overridePendingTransition(R.anim.push_left_in,R.anim.push_left_out);
     }
+
 }

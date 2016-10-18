@@ -1,8 +1,8 @@
 package app.cn.com.fulicenter.activity;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -12,7 +12,7 @@ import app.cn.com.fulicenter.fragment.NewGoodsFragment;
 import butterknife.ButterKnife;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
     RadioButton mLayoutNewGood;
     RadioButton mLayoutBoutique;
     RadioButton mLayoutCategory;
@@ -31,19 +31,18 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         initView();
-        iniFragment();
+        initFragment() ;
     }
 
-    private void iniFragment() {
-        mFragment = new Fragment[5];
-        mNewGoodsFragment = new NewGoodsFragment();
-        getSupportFragment()
+    private void initFragment() {
+        mFragment=new Fragment[5];
+        mNewGoodsFragment=new NewGoodsFragment();
+        getSupportFragmentManager()
                 .beginTransaction()
                 .add(R.id.fragment_container,mNewGoodsFragment)
                 .show(mNewGoodsFragment)
                 .commit();
     }
-
 
 
     private void initView() {
