@@ -1,6 +1,7 @@
 package app.cn.com.fulicenter.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.Adapter;
 import android.support.v7.widget.RecyclerView.ViewHolder;
@@ -15,24 +16,28 @@ import java.util.List;
 
 import app.cn.com.fulicenter.I;
 import app.cn.com.fulicenter.R;
+import app.cn.com.fulicenter.activity.GoodsDetailActivity;
+import app.cn.com.fulicenter.activity.MainActivity;
 import app.cn.com.fulicenter.bean.NewGoodsBean;
 import app.cn.com.fulicenter.utils.ImageLoader;
+import app.cn.com.fulicenter.utils.MFGT;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by 最后时刻 on 2016/10/17.
  */
 public class GoodsAdapter extends Adapter {
     List<NewGoodsBean> mlist;
-    Context mContxet;
+    Context mContext;
     boolean isMore;
 
 
-    public GoodsAdapter(List<NewGoodsBean> list, Context mContxet) {
+    public GoodsAdapter(List<NewGoodsBean> list, Context mContext) {
         mlist = new ArrayList<>();
         mlist.addAll(list);
-        this.mContxet = mContxet;
+        this.mContext = mContext;
     }
 
     public boolean isMore() {
@@ -48,9 +53,9 @@ public class GoodsAdapter extends Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         ViewHolder holder = null;
         if (viewType == I.TYPE_FOOTER) {
-            holder = new FooterViewHolder(View.inflate(mContxet,R.layout.item_footer,null));
+            holder = new FooterViewHolder(View.inflate(mContext,R.layout.item_footer,null));
         } else {
-            holder = new GoodsViewHolder(View.inflate(mContxet, R.layout.item_goods, null));
+            holder = new GoodsViewHolder(View.inflate(mContext, R.layout.item_goods, null));
         }
         return holder;
     }
@@ -63,9 +68,10 @@ public class GoodsAdapter extends Adapter {
         }else {
             GoodsViewHolder vh = (GoodsViewHolder) holder;
             NewGoodsBean goods = mlist.get(position);
-            ImageLoader.downloadImg(mContxet,vh.ivGoodsThumb,goods.getGoodsThumb());
+            ImageLoader.downloadImg(mContext,vh.ivGoodsThumb,goods.getGoodsThumb());
             vh.ivGoodsName.setText(goods.getGoodsName());
             vh.tvGoodsPrice.setText(goods.getCurrencyPrice());
+            vh.layoutGoods.setTag(goods.getId());
         }
     }
 
@@ -100,7 +106,7 @@ public class GoodsAdapter extends Adapter {
     }
 
 
-    static class GoodsViewHolder extends ViewHolder{
+     class GoodsViewHolder extends ViewHolder{
         @BindView(R.id.ivGoodsThumb)
         ImageView ivGoodsThumb;
         @BindView(R.id.ivGoodsName)
@@ -113,6 +119,11 @@ public class GoodsAdapter extends Adapter {
         GoodsViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
+        }
+        @OnClick(R.id.layout_goods)
+        public void onGoodsItemClick(){
+            int goodsId = (int) layoutGoods.getTag();
+            MFGT.gotoGoodsDetailsActivity(mContext,goodsId);
         }
     }
 
