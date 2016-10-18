@@ -1,4 +1,4 @@
-package app.cn.com.fulicenter.utils;
+package app.cn.com.fulicenter;
 
 
 public interface I {

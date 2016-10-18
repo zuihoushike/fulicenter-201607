@@ -12,9 +12,9 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import app.cn.com.fulicenter.I;
 import app.cn.com.fulicenter.R;
 import app.cn.com.fulicenter.bean.NewGoodsBean;
-import app.cn.com.fulicenter.utils.I;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
