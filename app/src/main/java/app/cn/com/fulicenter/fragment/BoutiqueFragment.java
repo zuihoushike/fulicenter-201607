@@ -30,7 +30,7 @@ import butterknife.ButterKnife;
 /**
  * Created by 最后时刻 on 2016/10/19.
  */
-public class BoutiqueFragment extends Fragment {
+public class BoutiqueFragment extends BaseFragment {
     @BindView(R.id.tv_refresh)
     TextView tvRefresh;
     @BindView(R.id.rv)
@@ -45,17 +45,16 @@ public class BoutiqueFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         View layout = inflater.inflate(R.layout.fragment_newgoods, container, false);
         ButterKnife.bind(this, layout);
         mContext = (MainActivity) getContext();
         mAdapter = new BoutiqueAdapter(mList,mContext);
-        initView();
-        initData();
-        setListener();
+        super.onCreateView(inflater,container,savedInstanceState);
         return layout;
     }
-
-    private void setListener() {
+    @Override
+    protected void setListener() {
         setPullDownListener();
     }
 
@@ -70,7 +69,8 @@ public class BoutiqueFragment extends Fragment {
         });
     }
 
-    private void initData() {
+    @Override
+    protected void initData() {
         downloadBoutique();
     }
 
@@ -97,7 +97,8 @@ public class BoutiqueFragment extends Fragment {
         });
     }
 
-    private void initView() {
+    @Override
+    protected void initView() {
         srl.setColorSchemeColors(getResources().getColor(R.color.google_blue),
                 getResources().getColor(R.color.google_yellow),
                 getResources().getColor(R.color.google_red),
