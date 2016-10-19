@@ -1,13 +1,10 @@
 package app.cn.com.fulicenter.bean;
 
-/**
- * Created by xiaomiao on 2016/10/14.
- */
 public class MessageBean {
 
     /**
      * success : true
-     * msg : 收藏成功
+     * msg : 添加收藏成功
      */
 
     private boolean success;
@@ -27,9 +24,6 @@ public class MessageBean {
 
     public void setMsg(String msg) {
         this.msg = msg;
-    }
-
-    public MessageBean() {
     }
 
     @Override
