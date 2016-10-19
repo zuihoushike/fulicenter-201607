@@ -17,6 +17,7 @@ import app.cn.com.fulicenter.I;
 import app.cn.com.fulicenter.R;
 import app.cn.com.fulicenter.bean.BoutiqueBean;
 import app.cn.com.fulicenter.utils.ImageLoader;
+import app.cn.com.fulicenter.view.FooterViewHolder;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -43,7 +44,7 @@ public class BoutiqueAdapter extends Adapter {
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         ViewHolder holder = null;
         if (viewType == I.TYPE_FOOTER) {
-            holder = new GoodsAdapter.FooterViewHolder(LayoutInflater.from(mContext)
+            holder = new FooterViewHolder(LayoutInflater.from(mContext)
                     .inflate(R.layout.item_footer, parent, false));
         } else {
             holder = new BoutqueViewHolder(LayoutInflater.from(mContext)
@@ -54,7 +55,7 @@ public class BoutiqueAdapter extends Adapter {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        if (holder instanceof GoodsAdapter.FooterViewHolder){
+        if (holder instanceof FooterViewHolder){
             ((GoodsAdapter.FooterViewHolder) holder).tvFooter.setText(getFooterString());
         }
         if (holder instanceof BoutqueViewHolder){
