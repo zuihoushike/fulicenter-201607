@@ -12,5 +12,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_goods_detail">GoodsDetailActivity</string>
+    <string name="title_activity_boutique_child">BoutiqueChildActivity</string>
 
 </resources>

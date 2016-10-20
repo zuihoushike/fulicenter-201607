@@ -45,7 +45,7 @@ public class BoutiqueAdapter extends Adapter<BoutiqueAdapter.BoutqueViewHolder> 
         holder.ivBoutiqueTitle.setText(boutiqueBean.getTitle());
         holder.tvBoutiqueName.setText(boutiqueBean.getName());
         holder.tvBoutiqueDescription.setText(boutiqueBean.getDescription());
-
+        holder.mLayoutBoutiqueItem();
     }
 
     @Override
