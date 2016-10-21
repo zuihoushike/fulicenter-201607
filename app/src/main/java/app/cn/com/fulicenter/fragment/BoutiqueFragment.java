@@ -75,7 +75,7 @@ public class BoutiqueFragment extends BaseFragment {
     }
 
     private void downloadBoutique() {
-        NetDAO.downloadBoutique(mContext, (OkHttpUtils.OnCompleteListener<BoutiqueBean>) new OkHttpUtils.OnCompleteListener<BoutiqueBean[]>() {
+        NetDAO.downloadBoutique(mContext, new OkHttpUtils.OnCompleteListener<BoutiqueBean[]>() {
             @Override
             public void onSuccess(BoutiqueBean[] result) {
                 srl.setRefreshing(false);
@@ -95,9 +95,11 @@ public class BoutiqueFragment extends BaseFragment {
                 L.e("error:"+error);
             }
         });
-    }
 
-    @Override
+
+
+
+            @Override
     protected void initView() {
         srl.setColorSchemeColors(getResources().getColor(R.color.google_blue),
                 getResources().getColor(R.color.google_yellow),

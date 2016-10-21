@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import app.cn.com.fulicenter.R;
 import app.cn.com.fulicenter.fragment.BoutiqueFragment;
+import app.cn.com.fulicenter.fragment.CategoryFragment;
 import app.cn.com.fulicenter.fragment.NewGoodsFragment;
 import app.cn.com.fulicenter.utils.L;
 import butterknife.BindView;
@@ -36,6 +37,7 @@ public class MainActivity extends BaseActivity {
     Fragment[] mFragment;
     NewGoodsFragment mNewGoodsFragment;
     BoutiqueFragment mBoutiqueFragment;
+    CategoryFragment mCategoryFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,13 +51,17 @@ public class MainActivity extends BaseActivity {
         mFragment=new Fragment[5];
         mNewGoodsFragment=new NewGoodsFragment();
         mBoutiqueFragment=new BoutiqueFragment();
+        mCategoryFragment=new CategoryFragment();
         mFragment[0]=mNewGoodsFragment;
         mFragment[1]=mBoutiqueFragment;
+        mFragment[2]=mCategoryFragment;
         getSupportFragmentManager()
                 .beginTransaction()
                 .add(R.id.fragment_container,mNewGoodsFragment)
                 .add(R.id.fragment_container,mBoutiqueFragment)
+                .add(R.id.fragment_container,mCategoryFragment)
                 .hide(mBoutiqueFragment)
+                .hide(mCategoryFragment)
                 .show(mNewGoodsFragment)
                 .commit();
     }
