@@ -77,7 +77,7 @@ public class NewGoodsFragment extends BaseFragment {
         });
     }
     private void downloadNewGoods(final int action) {
-        NetDAO.downLoadNewGoods(mContext, pageId, new OkHttpUtils.OnCompleteListener<NewGoodsBean[]>() {
+        NetDAO.downLoadNewGoods(mContext, pageId,I.CAT_ID,new OkHttpUtils.OnCompleteListener<NewGoodsBean[]>() {
             @Override
             public void onSuccess(NewGoodsBean[] result) {
                 srl.setRefreshing(false);

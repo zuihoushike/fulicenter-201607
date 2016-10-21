@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -17,12 +18,14 @@ import app.cn.com.fulicenter.I;
 import app.cn.com.fulicenter.R;
 import app.cn.com.fulicenter.bean.BoutiqueBean;
 import app.cn.com.fulicenter.utils.ImageLoader;
+import app.cn.com.fulicenter.utils.MFGT;
 import app.cn.com.fulicenter.view.FooterViewHolder;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class BoutiqueAdapter extends Adapter<BoutiqueAdapter.BoutqueViewHolder> {
-    Context mContext;
+    static Context mContext;
     ArrayList<BoutiqueBean> mList;
 
     public BoutiqueAdapter(ArrayList<BoutiqueBean> mList, Context mContext) {
@@ -42,10 +45,10 @@ public class BoutiqueAdapter extends Adapter<BoutiqueAdapter.BoutqueViewHolder> 
     public void onBindViewHolder(BoutqueViewHolder holder, int position) {
         BoutiqueBean boutiqueBean = mList.get(position);
         ImageLoader.downloadImg(mContext,holder.ivBoutiqueImg,boutiqueBean.getImageurl());
-        holder.ivBoutiqueTitle.setText(boutiqueBean.getTitle());
-        holder.tvBoutiqueName.setText(boutiqueBean.getName());
-        holder.tvBoutiqueDescription.setText(boutiqueBean.getDescription());
-        holder.mLayoutBoutiqueItem();
+        holder.mTvBoutiqueTitle.setText(boutiqueBean.getTitle());
+        holder.mTvBoutiqueName.setText(boutiqueBean.getName());
+        holder.mTvBoutiqueDescription.setText(boutiqueBean.getDescription());
+        holder.mLayoutBoutiqueItem.setTag(boutiqueBean.getId());
     }
 
     @Override
@@ -66,15 +69,22 @@ public class BoutiqueAdapter extends Adapter<BoutiqueAdapter.BoutqueViewHolder> 
         @BindView(R.id.ivBoutiqueImg)
         ImageView ivBoutiqueImg;
         @BindView(R.id.ivBoutiqueTitle)
-        TextView ivBoutiqueTitle;
+        TextView mTvBoutiqueTitle;
         @BindView(R.id.tvBoutiqueName)
-        TextView tvBoutiqueName;
+        TextView mTvBoutiqueName;
         @BindView(R.id.tvBoutiqueDescription)
-        TextView tvBoutiqueDescription;
+        TextView mTvBoutiqueDescription;
+        @BindView(R.id.layout_boutique_item)
+        RelativeLayout mLayoutBoutiqueItem;
 
         BoutqueViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
+        }
+        @OnClick(R.id.layout_boutique_item)
+        public void onBoutiqueClick(){
+            BoutiqueBean bean = (BoutiqueBean) mLayoutBoutiqueItem.getTag();
+            MFGT.gotoBoutiqueChildActivity(mContext,bean);
         }
     }
 }
