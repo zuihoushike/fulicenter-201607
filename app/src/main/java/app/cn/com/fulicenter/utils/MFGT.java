@@ -14,6 +14,7 @@ import app.cn.com.fulicenter.activity.GoodsDetailActivity;
 import app.cn.com.fulicenter.activity.LoginActivity;
 import app.cn.com.fulicenter.activity.MainActivity;
 import app.cn.com.fulicenter.R;
+import app.cn.com.fulicenter.activity.RegisterActivity;
 import app.cn.com.fulicenter.bean.BoutiqueBean;
 import app.cn.com.fulicenter.bean.CategoryChildBean;
 
@@ -63,5 +64,8 @@ public class MFGT {
 
     public static void gotoLogin(Activity context){
         startActivity(context, LoginActivity.class);
+    }
+    public static void gotoRegister(Activity context){
+        startActivity(context, RegisterActivity.class);
     }
 }
