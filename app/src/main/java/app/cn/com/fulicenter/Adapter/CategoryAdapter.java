@@ -11,9 +11,11 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import app.cn.com.fulicenter.R;
+import app.cn.com.fulicenter.activity.MainActivity;
 import app.cn.com.fulicenter.bean.CategoryChildBean;
 import app.cn.com.fulicenter.bean.CategoryGroupBean;
 import app.cn.com.fulicenter.utils.ImageLoader;
+import app.cn.com.fulicenter.utils.MFGT;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -102,10 +104,16 @@ public class CategoryAdapter extends BaseExpandableListAdapter {
             view.getTag();
             holder = (ChildViewHolder) view.getTag();
         }
-        CategoryChildBean child = getChild(groupPosition, childPosition);
+        final CategoryChildBean child = getChild(groupPosition, childPosition);
         if (child != null) {
             ImageLoader.downloadImg(mContext, holder.ivCategoryChildThumb, child.getImageUrl());
             holder.tvCategoryChildName.setText(child.getName());
+            holder.layoutCategoryChild.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    MFGT.gotoCategoryChildtivity(mContext,child.getId());
+                }
+            });
         }
         return view;
     }
