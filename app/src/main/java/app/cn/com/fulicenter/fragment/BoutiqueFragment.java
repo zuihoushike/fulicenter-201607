@@ -80,8 +80,8 @@ public class BoutiqueFragment extends BaseFragment {
             public void onSuccess(BoutiqueBean[] result) {
                 srl.setRefreshing(false);
                 tvRefresh.setVisibility(View.VISIBLE);
-                L.e("result"+result);
-                if(result!=null && result.length>0){
+                L.e("result" + result);
+                if (result != null && result.length > 0) {
                     ArrayList<BoutiqueBean> list = ConvertUtils.array2List(result);
                     mAdapter.initData(list);
                 }
@@ -92,11 +92,11 @@ public class BoutiqueFragment extends BaseFragment {
                 srl.setRefreshing(false);
                 tvRefresh.setVisibility(View.GONE);
                 CommonUtils.showLongToast(error);
-                L.e("error:"+error);
+                L.e("error:" + error);
             }
         });
 
-
+    }
 
 
             @Override
