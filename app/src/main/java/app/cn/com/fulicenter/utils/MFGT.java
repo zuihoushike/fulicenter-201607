@@ -14,14 +14,11 @@ import app.cn.com.fulicenter.activity.GoodsDetailActivity;
 import app.cn.com.fulicenter.activity.LoginActivity;
 import app.cn.com.fulicenter.activity.MainActivity;
 import app.cn.com.fulicenter.R;
-import app.cn.com.fulicenter.activity.RegisterActivity;
 import app.cn.com.fulicenter.bean.BoutiqueBean;
+import app.cn.com.fulicenter.activity.RegisterActivity;
 import app.cn.com.fulicenter.bean.CategoryChildBean;
 
-/**
- * Created by 最后时刻 on 2016/10/14.
- */
-
+import static app.cn.com.fulicenter.I.REQUEST_CODE_REGISTER;
 
 public class MFGT {
     public static void finish(Activity activity){
@@ -65,7 +62,15 @@ public class MFGT {
     public static void gotoLogin(Activity context){
         startActivity(context, LoginActivity.class);
     }
+
     public static void gotoRegister(Activity context){
-        startActivity(context, RegisterActivity.class);
+        Intent intent = new Intent();
+        intent.setClass(context,RegisterActivity.class);
+        startActivityForResult(context,intent, REQUEST_CODE_REGISTER);
+    }
+
+    public static void startActivityForResult(Activity context,Intent intent,int requestCode){
+        context.startActivityForResult(intent,requestCode);
+        context.overridePendingTransition(R.anim.push_left_in,R.anim.push_right_out);
     }
 }

@@ -1,11 +1,13 @@
 package app.cn.com.fulicenter.activity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
 
+import app.cn.com.fulicenter.I;
 import app.cn.com.fulicenter.R;
 import app.cn.com.fulicenter.bean.Result;
 import app.cn.com.fulicenter.net.NetDAO;
@@ -107,6 +109,7 @@ public class RegisterActivity extends BaseActivity {
                 }else {
                     if (result.isRetMsg()){
                         CommonUtils.showLongToast(R.string.register_success);
+                        setResult(RESULT_OK,new Intent().putExtra(I.User.USER_NAME,username));
                         MFGT.finish(mContext);
                     }else {
                         CommonUtils.showLongToast(R.string.register_fail_exists);
