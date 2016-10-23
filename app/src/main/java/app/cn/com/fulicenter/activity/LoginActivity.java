@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import app.cn.com.fulicenter.R;
+import app.cn.com.fulicenter.utils.MFGT;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -44,6 +45,7 @@ public class LoginActivity extends BaseActivity {
             case R.id.btn_login:
                 break;
             case R.id.btn_register:
+                MFGT.gotoRegister(this);
                 break;
         }
     }
