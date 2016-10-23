@@ -9,6 +9,8 @@
     <string name="password">Password</string>
     <string name="login">LOGIN</string>
     <string name="register">REGISTER</string>
+    <string name="Nick_name">Nick name</string>
+    <string name="confirm_password">Confirm Password</string>
 
     <string name="title_activity_splash">SplashActivity</string>
     <string name="title_activity_shopping">ShoppingActivity</string>
