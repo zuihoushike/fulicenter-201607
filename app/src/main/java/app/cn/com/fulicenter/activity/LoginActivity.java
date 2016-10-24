@@ -17,6 +17,7 @@ import app.cn.com.fulicenter.utils.CommonUtils;
 import app.cn.com.fulicenter.utils.L;
 import app.cn.com.fulicenter.utils.MFGT;
 import app.cn.com.fulicenter.utils.OkHttpUtils;
+import app.cn.com.fulicenter.utils.ResultUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -88,10 +89,10 @@ public class LoginActivity extends BaseActivity {
         pd.setMessage(getResources().getString(R.string.logining));
         pd.show();
         L.e(TAG,"username="+username+",password="+password);
-        NetDAO.login(mContext, username, password, new OkHttpUtils.OnCompleteListener<Result>() {
+        NetDAO.login(mContext, username, password, new OkHttpUtils.OnCompleteListener<String>() {
             @Override
-            public void onSuccess(Result result) {
-                pd.dismiss();
+            public void onSuccess(String s) {
+                Result result = ResultUtils.getResultFromJson(s, User.class);
                 L.e(TAG,"result="+result);
                 if (result==null){
                     CommonUtils.showLongToast(R.string.login_fail);
@@ -110,6 +111,7 @@ public class LoginActivity extends BaseActivity {
                         }
                     }
                 }
+                pd.dismiss();
             }
 
             @Override
