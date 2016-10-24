@@ -12,7 +12,9 @@ import app.cn.com.fulicenter.R;
 import app.cn.com.fulicenter.fragment.BoutiqueFragment;
 import app.cn.com.fulicenter.fragment.CategoryFragment;
 import app.cn.com.fulicenter.fragment.NewGoodsFragment;
+import app.cn.com.fulicenter.fragment.PersonalCenterFragment;
 import app.cn.com.fulicenter.utils.L;
+import app.cn.com.fulicenter.utils.MFGT;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -41,6 +43,7 @@ public class MainActivity extends BaseActivity {
     NewGoodsFragment mNewGoodsFragment;
     BoutiqueFragment mBoutiqueFragment;
     CategoryFragment mCategoryFragment;
+    PersonalCenterFragment mPersonalCenterFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +58,11 @@ public class MainActivity extends BaseActivity {
         mNewGoodsFragment=new NewGoodsFragment();
         mBoutiqueFragment=new BoutiqueFragment();
         mCategoryFragment=new CategoryFragment();
+        mPersonalCenterFragment = new PersonalCenterFragment();
         mFragment[0]=mNewGoodsFragment;
         mFragment[1]=mBoutiqueFragment;
         mFragment[2]=mCategoryFragment;
+        mFragment[4]=mPersonalCenterFragment;
         getSupportFragmentManager()
                 .beginTransaction()
                 .add(R.id.fragment_container,mNewGoodsFragment)
@@ -105,8 +110,8 @@ public class MainActivity extends BaseActivity {
             index=3;
             break;
         case R.id.layout_personal_center:
-            if (FuLiCenterApplication.getUsername()==null){
-                gotoLogin(this);
+            if (FuLiCenterApplication.getUser()==null){
+                MFGT.gotoLogin(this);
             }else {
                 index = 4;
             }
