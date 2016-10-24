@@ -3,7 +3,6 @@ package app.cn.com.fulicenter.activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -18,6 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static app.cn.com.fulicenter.utils.MFGT.gotoLogin;
+
 
 public class MainActivity extends BaseActivity {
 

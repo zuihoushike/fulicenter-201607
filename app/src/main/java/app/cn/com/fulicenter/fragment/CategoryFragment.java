@@ -9,10 +9,9 @@ import android.widget.ExpandableListView;
 
 import java.util.ArrayList;
 
-import app.cn.com.fulicenter.Adapter.CategoryAdapter;
 import app.cn.com.fulicenter.R;
+import app.cn.com.fulicenter.activity.CategoryAdapter;
 import app.cn.com.fulicenter.activity.MainActivity;
-import app.cn.com.fulicenter.bean.CategoryChildBean;
 import app.cn.com.fulicenter.bean.CategoryGroupBean;
 import app.cn.com.fulicenter.net.NetDAO;
 import app.cn.com.fulicenter.utils.ConvertUtils;
@@ -32,7 +31,7 @@ public class CategoryFragment extends BaseFragment {
     CategoryAdapter mAdapter;
     MainActivity mContext;
     ArrayList<CategoryGroupBean> mGroupList;
-    ArrayList<ArrayList<CategoryChildBean>> mChildList;
+    ArrayList<ArrayList<CategoryGroupBean>> mChildList;
 
     int groupCount;
 
@@ -44,7 +43,7 @@ public class CategoryFragment extends BaseFragment {
         mContext = (MainActivity) getContext();
         mGroupList = new ArrayList<>();
         mChildList = new ArrayList<>();
-        mAdapter = new CategoryAdapter(mChildList,mContext,mGroupList);
+        mAdapter = new CategoryAdapter(mContext,mGroupList,mChildList);
         super.onCreateView(inflater, container, savedInstanceState);
         return layout;
 
@@ -71,7 +70,7 @@ public class CategoryFragment extends BaseFragment {
                     L.e("groupList="+groupList.size());
                     mGroupList.addAll(groupList);
                     for (int i=0;i<groupList.size();i++){
-                        mChildList.add(new ArrayList<CategoryChildBean>());
+                        mChildList.add(new ArrayList<CategoryGroupBean>());
                         CategoryGroupBean g=groupList.get(i);
                         downloadChild(g.getId(),i);
                     }
@@ -110,11 +109,11 @@ public class CategoryFragment extends BaseFragment {
 
     @Override
     protected void setListener() {
-//        mElvCategory.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-//            @Override
-//            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-//                return false;
-//            }
-//        });
+        mElvCategory.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                return false;
+            }
+        });
     }
 }

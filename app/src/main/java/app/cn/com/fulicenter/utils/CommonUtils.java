@@ -2,7 +2,8 @@ package app.cn.com.fulicenter.utils;
 
 import android.widget.Toast;
 
-import cn.ucai.fulicenter.FuLiCenterApplication;
+import app.cn.com.fulicenter.FuLiCenterApplication;
+
 
 public class CommonUtils {
     public static void showLongToast(String msg){

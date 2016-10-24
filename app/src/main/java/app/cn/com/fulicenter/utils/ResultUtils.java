@@ -12,8 +12,9 @@ import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.ucai.fulicenter.I;
-import cn.ucai.fulicenter.bean.Result;
+import app.cn.com.fulicenter.I;
+import app.cn.com.fulicenter.bean.Result;
+
 
 public class ResultUtils {
     public static <T> Result getResultFromJson(String jsonStr, Class<T> clazz){

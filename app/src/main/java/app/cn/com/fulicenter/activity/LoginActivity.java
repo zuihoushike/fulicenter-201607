@@ -2,7 +2,9 @@ package app.cn.com.fulicenter.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.health.ServiceHealthStats;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -13,6 +15,7 @@ import app.cn.com.fulicenter.I;
 import app.cn.com.fulicenter.R;
 import app.cn.com.fulicenter.bean.Result;
 import app.cn.com.fulicenter.bean.User;
+import app.cn.com.fulicenter.dao.SharePrefrenceUtils;
 import app.cn.com.fulicenter.dao.UserDao;
 import app.cn.com.fulicenter.net.NetDAO;
 import app.cn.com.fulicenter.utils.CommonUtils;
@@ -105,6 +108,7 @@ public class LoginActivity extends BaseActivity {
                         UserDao dao = new UserDao(mContext);
                         boolean isSuccess = dao.saveUser(user);
                         if (isSuccess){
+                            SharePrefrenceUtils.getInstance(mContext).saveUser(user.getMusername());
                             FuLiCenterApplication.setUser(user);
                             MFGT.finish(mContext);
                         }else {
