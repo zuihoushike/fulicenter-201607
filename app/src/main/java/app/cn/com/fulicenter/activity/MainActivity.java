@@ -1,13 +1,17 @@
 package app.cn.com.fulicenter.activity;
 
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
+import android.widget.Filter;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
 import app.cn.com.fulicenter.FuLiCenterApplication;
+import app.cn.com.fulicenter.I;
 import app.cn.com.fulicenter.R;
 import app.cn.com.fulicenter.fragment.BoutiqueFragment;
 import app.cn.com.fulicenter.fragment.CategoryFragment;
@@ -22,6 +26,7 @@ import static app.cn.com.fulicenter.utils.MFGT.gotoLogin;
 
 
 public class MainActivity extends BaseActivity {
+    private static final String TAG = MainActivity.class.getSimpleName();
 
     @BindView(R.id.layout_new_good)
     RadioButton layoutNewGood;
@@ -146,5 +151,21 @@ public class MainActivity extends BaseActivity {
     }
     public void onBackPressed(){
         finish();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        L.e(TAG,"onResume ...");
+        setFragment();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        L.e(TAG,"onActivityResult,requestCode"+requestCode);
+        if (requestCode == I.REQUEST_CODE_LOGIN && FuLiCenterApplication.getUser()!=null){
+            index = 4;
+        }
     }
 }

@@ -18,7 +18,8 @@ public interface I {
     int TYPE_ITEM=0;
     int TYPE_FOOTER=1;
 
-    int REQUEST_CODE_REGISTER = 100;
+    int REQUEST_CODE_REGISTER = 101;
+    int REQUEST_CODE_LOGIN = 102;
 
     /** BeeColud APP ID */
     String BEE_COLUD_APP_ID = "3539b590-4859-4128-87a3-5fb8b86b94f6";
@@ -418,4 +419,6 @@ public interface I {
     String DOWNLOAD_IMG_URL= I.SERVER_ROOT+
             REQUEST_DOWNLOAD_IMAGE+I.QUESTION+ IMAGE_URL+"=";
 
+    String DOWNLOAD_AVATAR_URL = I.SERVER_ROOT +
+            REQUEST_DOWNLOAD_AVATAR + I.QUESTION;
 }
