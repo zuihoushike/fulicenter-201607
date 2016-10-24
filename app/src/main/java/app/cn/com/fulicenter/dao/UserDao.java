@@ -22,7 +22,7 @@ public class UserDao {
          DBManager.getInstance().onInit(context);
     }
 
-    public boolean saceUser(User user){
+    public boolean saveUser(User user){
         return  dbManager.saveUser(user);
     }
     public User getUser(String username){

@@ -25,5 +25,6 @@
 
     <string name="login_fail_unkonw_user">登陆失败，账号不存在</string>
     <string name="logining">登陆中...</string>
+    <string name="user_database_error">用户数据库操作异常</string>
 
 </resources>

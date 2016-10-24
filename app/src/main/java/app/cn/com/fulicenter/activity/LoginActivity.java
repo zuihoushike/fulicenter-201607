@@ -8,10 +8,12 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
+import app.cn.com.fulicenter.FuLiCenterApplication;
 import app.cn.com.fulicenter.I;
 import app.cn.com.fulicenter.R;
 import app.cn.com.fulicenter.bean.Result;
 import app.cn.com.fulicenter.bean.User;
+import app.cn.com.fulicenter.dao.UserDao;
 import app.cn.com.fulicenter.net.NetDAO;
 import app.cn.com.fulicenter.utils.CommonUtils;
 import app.cn.com.fulicenter.utils.L;
@@ -100,6 +102,14 @@ public class LoginActivity extends BaseActivity {
                     if (result.isRetMsg()){
                         User user = (User) result.getRetData();
                         L.e(TAG,"user="+user);
+                        UserDao dao = new UserDao(mContext);
+                        boolean isSuccess = dao.saveUser(user);
+                        if (isSuccess){
+                            FuLiCenterApplication.setUser(user);
+                            MFGT.finish(mContext);
+                        }else {
+                            CommonUtils.showLongToast(R.string.user_database_error);
+                        }
                         MFGT.finish(mContext);
                     }else {
                         if (result.getRetCode()==I.MSG_LOGIN_UNKNOW_USER){
