@@ -23,6 +23,7 @@ import app.cn.com.fulicenter.utils.L;
 import app.cn.com.fulicenter.utils.MFGT;
 import app.cn.com.fulicenter.utils.OkHttpUtils;
 import app.cn.com.fulicenter.utils.ResultUtils;
+import app.cn.com.fulicenter.view.DisplayUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -49,7 +50,7 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-
+        DisplayUtils.initBackWiththTiltle(mContext,getResources().getString(R.string.login));
     }
 
     @Override

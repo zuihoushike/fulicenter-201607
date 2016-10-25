@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,6 +16,7 @@ import app.cn.com.fulicenter.bean.User;
 import app.cn.com.fulicenter.utils.ImageLoader;
 import app.cn.com.fulicenter.utils.L;
 import app.cn.com.fulicenter.utils.MFGT;
+import app.cn.com.fulicenter.view.DisplayUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -31,6 +33,8 @@ public class PersonalCenterFragment extends BaseFragment {
     TextView mTvUserName;
 
     MainActivity mContext;
+    GridView mCenterUserOrderLis;
+    User user = null;
 
     @Nullable
     @Override
@@ -44,7 +48,6 @@ public class PersonalCenterFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-
     }
 
     @Override
@@ -62,6 +65,12 @@ public class PersonalCenterFragment extends BaseFragment {
     @Override
     protected void setListener() {
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        initData();
     }
 
     @OnClick({R.id.tv_center_settings,R.id.center_user_info})
