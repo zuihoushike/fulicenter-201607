@@ -32,6 +32,7 @@ public class UserProfileActivity extends BaseActivity {
     UserProfileActivity mContext;
     User user = null;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_user_profile);
@@ -72,11 +73,13 @@ public class UserProfileActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.layout_user_profile_avatar:
+
                 break;
             case R.id.layout_user_profile_username:
                 CommonUtils.showLongToast(R.string.username_connot_be_modify);
                 break;
             case R.id.layout_user_profile_nickname:
+                MFGT.gotoUpdateNick(mContext);
                 break;
             case R.id.btn_logout:
                 logout();
