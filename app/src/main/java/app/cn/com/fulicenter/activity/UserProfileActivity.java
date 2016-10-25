@@ -1,5 +1,6 @@
 package app.cn.com.fulicenter.activity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -7,9 +8,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import app.cn.com.fulicenter.FuLiCenterApplication;
+import app.cn.com.fulicenter.I;
 import app.cn.com.fulicenter.R;
 import app.cn.com.fulicenter.bean.User;
 import app.cn.com.fulicenter.dao.SharePrefrenceUtils;
+import app.cn.com.fulicenter.utils.CommonUtils;
 import app.cn.com.fulicenter.utils.ImageLoader;
 import app.cn.com.fulicenter.utils.MFGT;
 import app.cn.com.fulicenter.view.DisplayUtils;
@@ -50,9 +53,15 @@ public class UserProfileActivity extends BaseActivity {
             mTvUserProfileName.setText(user.getMusername());
             mTvUserProfileNick.setText(user.getMuserNick());
         }else {
-            finish();
+            if (user!=null){
+                finish();
+                return;
+            }
+            showInfo();
         }
     }
+
+
 
     @Override
     protected void setListener() {
@@ -65,6 +74,7 @@ public class UserProfileActivity extends BaseActivity {
             case R.id.layout_user_profile_avatar:
                 break;
             case R.id.layout_user_profile_username:
+                CommonUtils.showLongToast(R.string.username_connot_be_modify);
                 break;
             case R.id.layout_user_profile_nickname:
                 break;
@@ -81,5 +91,28 @@ public class UserProfileActivity extends BaseActivity {
             MFGT.gotoMainActivity(mContext);
         }
         finish();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        showInfo();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==RESULT_OK && requestCode == I.REQUEST_CODE_NICK){
+            CommonUtils.showLongToast(R.string.update_user_nick_success);
+        }
+    }
+
+    private void showInfo() {
+        user  = FuLiCenterApplication.getUser();
+        if (user!=null){
+            ImageLoader.setAvatar(ImageLoader.getAvatarUrl(user),mContext,mIvUserProfileAvatar);
+            mTvUserProfileName.setText(user.getMusername());
+            mTvUserProfileNick.setText(user.getMuserNick());
+        }
     }
 }

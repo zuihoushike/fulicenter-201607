@@ -21,5 +21,9 @@
     <string name="title_activity_boutique_child">BoutiqueChildActivity</string>
     <string name="login_fail_error_password">登陆失败，错误的用户名或密码</string>
     <string name="user_database_error">user database error</string>
+    <string name="update_user_nick">update user nick</string>
+    <string name="update_fail">update fail</string>
+    <string name="update_nick_fail_unmodify">user nick unmodify</string>
+    <string name="update_user_nick_success">update user nick success</string>
 
 </resources>
