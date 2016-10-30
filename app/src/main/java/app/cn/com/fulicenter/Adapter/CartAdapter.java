@@ -18,6 +18,8 @@ import java.util.ArrayList;
 
 import app.cn.com.fulicenter.R;
 import app.cn.com.fulicenter.bean.CartBean;
+import app.cn.com.fulicenter.bean.GoodsDetailsBean;
+import app.cn.com.fulicenter.utils.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -46,6 +48,14 @@ public class CartAdapter extends Adapter<CartAdapter.CartViewHolder> {
 //        holder.mTvBoutiqueName.setText(boutiqueBean.getName());
 //        holder.mTvBoutiqueDescription.setText(boutiqueBean.getDescription());
 //        holder.mLayoutBoutiqueItem.setTag(boutiqueBean);
+        GoodsDetailsBean goods = cartBean.getGoods();
+        if(goods!=null) {
+            ImageLoader.downloadImg(mContext, holder.mIvCartThumb, goods.getGoodsThumb());
+            holder.mTvCartGoodName.setText(goods.getGoodsName());
+            holder.mTvCartPrice.setText(goods.getCurrencyPrice());
+        }
+        holder.mTvCartCount.setText("("+cartBean.getCount()+")");
+        holder.mCbCartSelected.setChecked(false);
     }
 
     @Override
