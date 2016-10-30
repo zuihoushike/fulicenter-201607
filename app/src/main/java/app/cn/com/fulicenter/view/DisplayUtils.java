@@ -28,6 +28,7 @@ public class DisplayUtils {
         ((TextView)activity.findViewById(R.id.tv_common_title)).setText(title);
     }
 
-    public static void initBackWithTitle(CollectsActivity mContext, String string) {
+    public static void initBackWithTitle(CollectsAdapter mContext, String string) {
+
     }
 }

@@ -108,6 +108,7 @@ class CollectsAdapter extends Adapter {
         mList.addAll(list);
         notifyDataSetChanged();
     }
+    
 
     public void addData(ArrayList<CollectBean> list) {
         mList.addAll(list);
