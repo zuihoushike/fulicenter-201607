@@ -22,13 +22,33 @@ import app.cn.com.fulicenter.I;
 import app.cn.com.fulicenter.R;
 import app.cn.com.fulicenter.bean.CartBean;
 import app.cn.com.fulicenter.bean.GoodsDetailsBean;
+import app.cn.com.fulicenter.bean.MessageBean;
+import app.cn.com.fulicenter.net.NetDAO;
+import app.cn.com.fulicenter.net.OkHttpUtils;
 import app.cn.com.fulicenter.utils.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class CartAdapter extends Adapter<CartAdapter.CartViewHolder> {
     Context mContext;
     ArrayList<CartBean> mList;
+
+
+    @BindView(R.id.cb_cart_selected)
+    CheckBox mCbCartSelected;
+    @BindView(R.id.iv_cart_thumb)
+    ImageView mIvCartThumb;
+    @BindView(R.id.tv_cart_good_name)
+    TextView mTvCartGoodName;
+    @BindView(R.id.iv_cart_add)
+    ImageView mIvCartAdd;
+    @BindView(R.id.tv_cart_count)
+    TextView mTvCartCount;
+    @BindView(R.id.iv_cart_del)
+    ImageView mIvCartDel;
+    @BindView(R.id.tv_cart_price)
+    TextView mTvCartPrice;
 
     public CartAdapter(Context context, ArrayList<CartBean> list) {
         mContext = context;
@@ -59,12 +79,14 @@ public class CartAdapter extends Adapter<CartAdapter.CartViewHolder> {
         holder.mTvCartCount.setText("("+cartBean.getCount()+")");
         holder.mCbCartSelected.setChecked(false);
         holder.mCbCartSelected.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 cartBean.setChecked(b);
                 mContext.sendBroadcast(new Intent(I.BROADCAST_UPDATA_CART));
             }
         });
+        holder.mIvCartAdd.setTag(position);
     }
 
     @Override
@@ -75,6 +97,25 @@ public class CartAdapter extends Adapter<CartAdapter.CartViewHolder> {
     public void initData(ArrayList<CartBean> list) {
         mList = list;
         notifyDataSetChanged();
+    }
+
+    @OnClick(R.id.iv_cart_add)
+    public void addCart(){
+        final int position = (int) mIvCartAdd.getTag();
+        CartBean cart = mList.get(position);
+        NetDAO.updateCart(mContext, cart.getId(), cart.getCount() + 1, new OkHttpUtils.OnCompleteListener<MessageBean>() {
+            @Override
+            public void onSuccess(MessageBean result) {
+                if(result!=null && result.isSuccess()){
+                    mList.get(position).setCount(mList.get(position).getCount()+1);
+                    mContext.sendBroadcast(new Intent(I.BROADCAST_UPDATA_CART));
+                    mTvCartCount.setText("("+(mList.get(position).getCount())+")");
+                }
+            }
+            @Override
+            public void onError(String error) {
+            }
+        });
     }
 
     class CartViewHolder extends ViewHolder {
