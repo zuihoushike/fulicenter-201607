@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -24,12 +25,12 @@ import app.cn.com.fulicenter.bean.User;
 import app.cn.com.fulicenter.net.NetDAO;
 import app.cn.com.fulicenter.net.OkHttpUtils;
 import app.cn.com.fulicenter.utils.CommonUtils;
-import app.cn.com.fulicenter.utils.ConvertUtils;
 import app.cn.com.fulicenter.utils.L;
 import app.cn.com.fulicenter.utils.ResultUtils;
 import app.cn.com.fulicenter.view.SpaceItemDecoration;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
 public class CartFragment extends BaseFragment {
@@ -40,6 +41,14 @@ public class CartFragment extends BaseFragment {
     RecyclerView mRv;
     @BindView(R.id.srl)
     SwipeRefreshLayout mSrl;
+    @BindView(R.id.tv_cart_sum_price)
+    TextView mTvCartSumPrice;
+    @BindView(R.id.tv_cart_save_price)
+    TextView mTvCartSavePrice;
+    @BindView(R.id.layout_cart)
+    RelativeLayout mLayoutCart;
+    @BindView(R.id.tv_nothing)
+    TextView mTvNothing;
     LinearLayoutManager llm;
     MainActivity mContext;
     CartAdapter mAdapter;
@@ -48,12 +57,12 @@ public class CartFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View layout = inflater.inflate(R.layout.fragment_newgoods, container, false);
+        View layout = inflater.inflate(R.layout.fragment_cart, container, false);
         ButterKnife.bind(this, layout);
         mContext = (MainActivity) getContext();
         mList = new ArrayList<>();
-        mAdapter = new CartAdapter(mContext,mList);
-        super.onCreateView(inflater,container,savedInstanceState);
+        mAdapter = new CartAdapter(mContext, mList);
+        super.onCreateView(inflater, container, savedInstanceState);
         return layout;
     }
 
@@ -91,11 +100,15 @@ public class CartFragment extends BaseFragment {
                     if(list!=null && list.size()>0){
                         L.e(TAG,"list[0]="+list.get(0));
                         mAdapter.initData(list);
+                        setCartLayout(true);
+                    }else{
+                        setCartLayout(false);
                     }
                 }
 
                 @Override
                 public void onError(String error) {
+                    setCartLayout(false);
                     mSrl.setRefreshing(false);
                     mTvRefresh.setVisibility(View.GONE);
                     CommonUtils.showShortToast(error);
@@ -118,5 +131,16 @@ public class CartFragment extends BaseFragment {
         mRv.setHasFixedSize(true);
         mRv.setAdapter(mAdapter);
         mRv.addItemDecoration(new SpaceItemDecoration(12));
+        setCartLayout(false);
     }
+    private void setCartLayout(boolean hasCart) {
+        mLayoutCart.setVisibility(hasCart?View.VISIBLE:View.GONE);
+        mTvNothing.setVisibility(hasCart?View.GONE:View.VISIBLE);
+        mRv.setVisibility(hasCart?View.VISIBLE:View.GONE);
+    }
+    @OnClick(R.id.tv_cart_buy)
+    public void onClick() {
+    }
+
+
 }
