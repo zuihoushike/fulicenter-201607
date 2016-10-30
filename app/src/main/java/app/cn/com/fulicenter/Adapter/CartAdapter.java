@@ -26,6 +26,7 @@ import app.cn.com.fulicenter.bean.MessageBean;
 import app.cn.com.fulicenter.net.NetDAO;
 import app.cn.com.fulicenter.net.OkHttpUtils;
 import app.cn.com.fulicenter.utils.ImageLoader;
+import app.cn.com.fulicenter.utils.MFGT;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -97,6 +98,13 @@ public class CartAdapter extends Adapter<CartAdapter.CartViewHolder> {
     public void initData(ArrayList<CartBean> list) {
         mList = list;
         notifyDataSetChanged();
+    }
+
+    @OnClick({R.id.iv_cart_thumb,R.id.tv_cart_good_name,R.id.tv_cart_price})
+    public void gotoDetail(){
+        final int position = (int) mIvCartAdd.getTag();
+        CartBean cart = mList.get(position);
+        MFGT.gotoGoodsDetailsActivity(mContext,cart.getGoodsId());
     }
 
     @OnClick(R.id.iv_cart_add)
