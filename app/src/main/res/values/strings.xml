@@ -26,5 +26,5 @@
     <string name="update_nick_fail_unmodify">user nick unmodify</string>
     <string name="update_user_nick_success">update user nick success</string>4
     <string name="collect_title">collects</string>
-
+    <string name="delete_collect_fail">delete collect fail</string>
 </resources>

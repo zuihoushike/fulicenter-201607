@@ -1,149 +1,161 @@
-package app.cn.com.fulicenter.activity;
+package com.example.lenovo.fulicenters.adapter;
 
-import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.content.Context;
+import android.support.v7.widget.RecyclerView.Adapter;
+import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 
-import app.cn.com.fulicenter.Adapter.CollectsAdapter;
+import java.util.ArrayList;
+import java.util.List;
+
 import app.cn.com.fulicenter.FuLiCenterApplication;
 import app.cn.com.fulicenter.I;
 import app.cn.com.fulicenter.R;
 import app.cn.com.fulicenter.bean.CollectBean;
-import app.cn.com.fulicenter.bean.User;
+import app.cn.com.fulicenter.bean.MessageBean;
 import app.cn.com.fulicenter.net.NetDAO;
 import app.cn.com.fulicenter.net.OkHttpUtils;
 import app.cn.com.fulicenter.utils.CommonUtils;
-import app.cn.com.fulicenter.utils.ConvertUtils;
+import app.cn.com.fulicenter.utils.ImageLoader;
 import app.cn.com.fulicenter.utils.L;
-import app.cn.com.fulicenter.view.DisplayUtils;
-import app.cn.com.fulicenter.view.SpaceItemDecoration;
+import app.cn.com.fulicenter.utils.MFGT;
+import app.cn.com.fulicenter.view.FooterViewHolder;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
- * Created by 最后时刻 on 2016/10/30.
+ * Created by clawpo on 2016/10/17.
  */
 
-public class CollectsActivity extends BaseActivity{
-    CollectsActivity mContext;
-    @BindView(R.id.tv_refresh)
-    TextView mTvRefresh;
-    @BindView(R.id.rv)
-    RecyclerView mRv;
-    @BindView(R.id.srl)
-    SwipeRefreshLayout mSrl;
-    CollectsAdapter mAdapter;
-    ArrayList<CollectBean> mList;
-    int pageId = 1;
-    GridLayoutManager glm;
-    User user = null;
+class CollectsAdapter extends Adapter {
+    Context mContext;
+    List<CollectBean> mList;
+    boolean isMore;
+    int soryBy = I.SORT_BY_ADDTIME_DESC;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_collects);
-        ButterKnife.bind(this);
-        mContext = this;
+    public CollectsAdapter(Context context, List<CollectBean> list) {
+        mContext = context;
         mList = new ArrayList<>();
-        mAdapter = new CollectsAdapter(mContext,mList);
-        super.onCreate(savedInstanceState);
+        mList.addAll(list);
+    }
+
+    public void setSoryBy(int soryBy) {
+        this.soryBy = soryBy;
+        notifyDataSetChanged();
+    }
+
+    public boolean isMore() {
+        return isMore;
+    }
+
+    public void setMore(boolean more) {
+        isMore = more;
+        notifyDataSetChanged();
     }
 
     @Override
-    protected void initView() {
-        DisplayUtils.initBackWithTitle(mContext, getResources().getString(R.string.collect_title));
-        mSrl.setColorSchemeColors(
-                getResources().getColor(R.color.google_blue),
-                getResources().getColor(R.color.google_green),
-                getResources().getColor(R.color.google_red),
-                getResources().getColor(R.color.google_yellow)
-        );
-        glm = new GridLayoutManager(mContext, I.COLUM_NUM);
-        mRv.setLayoutManager(glm);
-        mRv.setHasFixedSize(true);
-        mRv.setAdapter(mAdapter);
-        mRv.addItemDecoration(new SpaceItemDecoration(12));
-    }
-
-    @Override
-    protected void setListener() {
-        setPullUpListener();
-        setPullDownListener();
-    }
-
-    private void setPullDownListener() {
-        mSrl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                mSrl.setRefreshing(true);
-                mTvRefresh.setVisibility(View.VISIBLE);
-                pageId = 1;
-                downloadCollects(I.ACTION_PULL_DOWN);
-            }
-                   });
-    }
-    private void downloadCollects(final int action) {
-        NetDAO.downloadCollects(mContext, user.getMuserName(), pageId, new OkHttpUtils.OnCompleteListener<CollectBean[]>() {
-            @Override
-            public void onSuccess(CollectBean[] result) {
-                mSrl.setRefreshing(false);
-                mTvRefresh.setVisibility(View.GONE);
-                mAdapter.setMore(true);
-                if (result != null && result.length > 0) {
-                    ArrayList<CollectBean> list = ConvertUtils.array2List(result);
-                    if (action == I.ACTION_DOWNLOAD || action == I.ACTION_PULL_DOWN) {
-                        mAdapter.initData(list);
-                    } else {
-                        mAdapter.addData(list);
-                    }
-                    if (list.size() < I.PAGE_SIZE_DEFAULT) {
-                        mAdapter.setMore(false);
-                    }
-                } else {
-                    mAdapter.setMore(false);
-                }
-            }
-            @Override
-            public void onError(String error) {
-                mSrl.setRefreshing(false);
-                mTvRefresh.setVisibility(View.GONE);
-                mAdapter.setMore(false);
-                CommonUtils.showShortToast(error);
-                L.e("error:" + error);
-            }
-        });
-    }
-    private void setPullUpListener() {
-        mRv.setOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                int lastPosition = glm.findLastVisibleItemPosition();
-                if (newState == RecyclerView.SCROLL_STATE_IDLE
-                        && lastPosition == mAdapter.getItemCount() - 1
-                        && mAdapter.isMore()) {
-                    pageId++;
-                    downloadCollects(I.ACTION_PULL_UP);
-                }
-            }
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                int firstPosition = glm.findFirstVisibleItemPosition();
-                               mSrl.setEnabled(firstPosition == 0);
-            }
-        });
-    }
-    @Override
-    protected void initData() {
-        user = FuLiCenterApplication.getUser();
-        if(user==null){
-            finish();
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        ViewHolder holder = null;
+        if (viewType == I.TYPE_FOOTER) {
+            holder = new FooterViewHolder(View.inflate(mContext, R.layout.item_footer, null));
+        } else {
+            holder = new ColelctsViewHolder(View.inflate(mContext, R.layout.item_collects, null));
         }
-        downloadCollects(I.ACTION_DOWNLOAD);
+        return holder;
     }
+
+    @Override
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        if(getItemViewType(position)==I.TYPE_FOOTER){
+            FooterViewHolder vh = (FooterViewHolder) holder;
+            vh.mTvFooter.setText(getFootString());
+        }else{
+            ColelctsViewHolder vh = (ColelctsViewHolder) holder;
+            CollectBean goods = mList.get(position);
+            ImageLoader.downloadImg(mContext,vh.mIvGoodsThumb,goods.getGoodsThumb());
+            vh.mTvGoodsName.setText(goods.getGoodsName());
+            vh.mLayoutGoods.setTag(goods);
+        }
+    }
+
+    private int getFootString() {
+        return isMore?R.string.load_more:R.string.no_more;
+    }
+
+    @Override
+    public int getItemCount() {
+        return mList != null ? mList.size() + 1 : 1;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (position == getItemCount() - 1) {
+            return I.TYPE_FOOTER;
+        }
+        return I.TYPE_ITEM;
+    }
+
+    public void initData(ArrayList<CollectBean> list) {
+        if(mList!=null){
+            mList.clear();
+        }
+        mList.addAll(list);
+        notifyDataSetChanged();
+    }
+
+    public void addData(ArrayList<CollectBean> list) {
+        mList.addAll(list);
+        notifyDataSetChanged();
+    }
+
+    class ColelctsViewHolder extends ViewHolder{
+        @BindView(R.id.ivGoodsThumb)
+        ImageView mIvGoodsThumb;
+        @BindView(R.id.tvGoodsName)
+        TextView mTvGoodsName;
+        @BindView(R.id.iv_collect_del)
+        ImageView mIvCollectDel;
+        @BindView(R.id.layout_goods)
+        RelativeLayout mLayoutGoods;
+
+        ColelctsViewHolder(View view) {
+            super(view);
+            ButterKnife.bind(this, view);
+        }
+        @OnClick(R.id.layout_goods)
+        public void onGoodsItemClick(){
+            CollectBean goods = (CollectBean) mLayoutGoods.getTag();
+            MFGT.gotoGoodsDetailsActivity(mContext,goods.getGoodsId());
+        }
+
+        public void deleteCollect(){
+            final CollectBean goods = (CollectBean) mLayoutGoods.getTag();
+            String username = FuLiCenterApplication.getUser().getMuserName();
+            NetDAO.deleteCollect(mContext, username, goods.getGoodsId(), new OkHttpUtils.OnCompleteListener<MessageBean>() {
+                @Override
+                public void onSuccess(MessageBean result) {
+                    if(result!=null && result.isSuccess()){
+                        mList.remove(goods);
+                        notifyDataSetChanged();
+                    }else{
+                        CommonUtils.showLongToast(result!=null?result.getMsg():
+                                mContext.getResources().getString(R.string.delete_collect_fail));
+                    }
+                }
+
+                @Override
+                public void onError(String error) {
+                    L.e("error="+error);
+                    CommonUtils.showLongToast(mContext.getResources().getString(R.string.delete_collect_fail));
+                }
+            });
+        }
+    }
+
 }

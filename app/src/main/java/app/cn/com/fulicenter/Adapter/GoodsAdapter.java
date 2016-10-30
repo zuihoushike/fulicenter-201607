@@ -115,7 +115,7 @@ public class GoodsAdapter extends Adapter {
     }
 
 
-     class GoodsViewHolder extends ViewHolder{
+     public class GoodsViewHolder extends ViewHolder{
         @BindView(R.id.ivGoodsThumb)
         ImageView ivGoodsThumb;
         @BindView(R.id.ivGoodsName)
@@ -124,8 +124,10 @@ public class GoodsAdapter extends Adapter {
         TextView tvGoodsPrice;
         @BindView(R.id.layout_goods)
         LinearLayout layoutGoods;
+         public ImageView mIvGoodsThumb;
+         public BreakIterator mTvGoodsName;
 
-        GoodsViewHolder(View view) {
+         GoodsViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }
