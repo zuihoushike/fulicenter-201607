@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import app.cn.com.fulicenter.R;
+import app.cn.com.fulicenter.activity.CollectsActivity;
 import app.cn.com.fulicenter.utils.MFGT;
 
 /**
@@ -25,5 +26,8 @@ public class DisplayUtils {
     public static void initBackWiththTiltle(final Activity activity ,final String title){
         initBack(activity);
         ((TextView)activity.findViewById(R.id.tv_common_title)).setText(title);
+    }
+
+    public static void initBackWithTitle(CollectsActivity mContext, String string) {
     }
 }

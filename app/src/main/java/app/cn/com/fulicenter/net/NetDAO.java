@@ -5,6 +5,7 @@ import android.content.Context;
 import app.cn.com.fulicenter.I;
 import app.cn.com.fulicenter.bean.BoutiqueBean;
 import app.cn.com.fulicenter.bean.CategoryGroupBean;
+import app.cn.com.fulicenter.bean.CollectBean;
 import app.cn.com.fulicenter.bean.GoodsDetailsBean;
 import app.cn.com.fulicenter.bean.MessageBean;
 import app.cn.com.fulicenter.bean.NewGoodsBean;
@@ -99,6 +100,16 @@ public class NetDAO {
         utils.setRequestUrl(I.REQUEST_FIND_COLLECT_COUNT)
                 .addParam(I.Collect.USER_NAME,username)
                 .targetClass(MessageBean.class)
+                .execute(listener);
+    }
+
+    public static void downloadCollects(Context context, String username, int pageId, OkHttpUtils.OnCompleteListener<CollectBean[]> listener){
+        OkHttpUtils<CollectBean[]> utils = new OkHttpUtils<>(context);
+        utils.setRequestUrl(I.REQUEST_FIND_COLLECTS)
+                .addParam(I.Collect.USER_NAME,username)
+                .addParam(I.PAGE_ID,String.valueOf(pageId))
+                .addParam(I.PAGE_SIZE,String.valueOf(I.PAGE_SIZE_DEFAULT))
+                .targetClass(CollectBean[].class)
                 .execute(listener);
     }
 }

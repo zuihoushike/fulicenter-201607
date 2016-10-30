@@ -92,7 +92,7 @@ public class PersonalCenterFragment extends BaseFragment {
 
             @Override
             public void onError(String error) {
-
+                L.e(TAG, "error=" + error);
             }
         });
     }
@@ -105,6 +105,11 @@ public class PersonalCenterFragment extends BaseFragment {
     @OnClick(R.id.tv_center_settings)
     public void onClick(){
 
+    }
+
+    @OnClick(R.id.layout_center_collect)
+    public void gotoCollectsList(){
+        MFGT.gotoCollects(mContext);
     }
 
 

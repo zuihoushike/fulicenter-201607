@@ -10,6 +10,7 @@ import app.cn.com.fulicenter.I;
 import app.cn.com.fulicenter.R;
 import app.cn.com.fulicenter.activity.BoutiqueChildActivity;
 import app.cn.com.fulicenter.activity.CategoryChildtivity;
+import app.cn.com.fulicenter.activity.CollectsActivity;
 import app.cn.com.fulicenter.activity.GoodsDetailActivity;
 import app.cn.com.fulicenter.activity.LoginActivity;
 import app.cn.com.fulicenter.activity.MainActivity;
@@ -88,5 +89,9 @@ public class MFGT {
 
     public static void gotoUpdateNick(Activity context){
         startActivityForResult(context,new Intent(context, UpdateNickActivity.class),I.REQUEST_CODE_NICK);
+    }
+
+    public static void gotoCollects(Activity context){
+        startActivity(context, CollectsActivity.class);
     }
 }

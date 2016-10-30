@@ -13,6 +13,7 @@ import butterknife.ButterKnife;
  */
 public class FooterViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.tvFooter)
+    public
     TextView mTvFooter;
 
     public FooterViewHolder(View view) {
