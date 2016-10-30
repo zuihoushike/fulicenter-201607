@@ -3,6 +3,10 @@ package app.cn.com.fulicenter.fragment;
 /**
  * Created by 最后时刻 on 2016/10/30.
  */
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -18,6 +22,7 @@ import java.util.ArrayList;
 
 import app.cn.com.fulicenter.Adapter.CartAdapter;
 import app.cn.com.fulicenter.FuLiCenterApplication;
+import app.cn.com.fulicenter.I;
 import app.cn.com.fulicenter.R;
 import app.cn.com.fulicenter.activity.MainActivity;
 import app.cn.com.fulicenter.bean.CartBean;
@@ -49,6 +54,9 @@ public class CartFragment extends BaseFragment {
     RelativeLayout mLayoutCart;
     @BindView(R.id.tv_nothing)
     TextView mTvNothing;
+
+    updateCartReceiver mReceiver;
+
     LinearLayoutManager llm;
     MainActivity mContext;
     CartAdapter mAdapter;
@@ -69,6 +77,9 @@ public class CartFragment extends BaseFragment {
     @Override
     protected void setListener() {
         setPullDownListener();
+        IntentFilter filter = new IntentFilter(I.BROADCAST_UPDATA_CART);
+        mReceiver = new updateCartReceiver();
+        mContext.registerReceiver(mReceiver,filter);
     }
 
     private void setPullDownListener() {
@@ -100,6 +111,9 @@ public class CartFragment extends BaseFragment {
                     if(list!=null && list.size()>0){
                         L.e(TAG,"list[0]="+list.get(0));
                         mAdapter.initData(list);
+                        mList.clear();
+                        mList.addAll(list);
+                        mAdapter.initData(mList);
                         setCartLayout(true);
                     }else{
                         setCartLayout(false);
@@ -163,5 +177,21 @@ public class CartFragment extends BaseFragment {
     private int getPrice(String price){
         price = price.substring(price.indexOf("￥")+1);
         return Integer.valueOf(price);
+    }
+
+
+    class updateCartReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            L.e(TAG,"updateCartReceiver...");
+            sumPrice();
+        }
+    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(mReceiver!=null){
+            mContext.unregisterReceiver(mReceiver);
+        }
     }
 }
