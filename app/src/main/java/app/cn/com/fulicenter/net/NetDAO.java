@@ -9,7 +9,6 @@ import app.cn.com.fulicenter.bean.GoodsDetailsBean;
 import app.cn.com.fulicenter.bean.NewGoodsBean;
 import app.cn.com.fulicenter.bean.Result;
 import app.cn.com.fulicenter.utils.MD5;
-import app.cn.com.fulicenter.utils.OkHttpUtils;
 
 public class NetDAO {
     public static void downLoadNewGoods(Context context,int catId,int pageId,OkHttpUtils.OnCompleteListener listener){
@@ -83,6 +82,13 @@ public class NetDAO {
         utils.setRequestUrl(I.REQUEST_UPDATE_USER_NICK)
                 .addParam(I.User.USER_NAME,username)
                 .addParam(I.User.NICK,nick)
+                .targetClass(String.class)
+                .execute(listener);
+    }
+    public static void syncUserInfo(Context context, String username, OkHttpUtils.OnCompleteListener<String> listener){
+        OkHttpUtils<String> utils = new OkHttpUtils<>(context);
+        utils.setRequestUrl(I.REQUEST_FIND_USER)
+                .addParam(I.User.USER_NAME,username)
                 .targetClass(String.class)
                 .execute(listener);
     }

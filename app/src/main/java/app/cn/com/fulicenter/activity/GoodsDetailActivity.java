@@ -13,7 +13,7 @@ import app.cn.com.fulicenter.net.NetDAO;
 import app.cn.com.fulicenter.utils.CommonUtils;
 import app.cn.com.fulicenter.utils.L;
 import app.cn.com.fulicenter.utils.MFGT;
-import app.cn.com.fulicenter.utils.OkHttpUtils;
+import app.cn.com.fulicenter.net.OkHttpUtils;
 import app.cn.com.fulicenter.view.FlowIndicator;
 import app.cn.com.fulicenter.view.SlideAutoLoopView;
 import butterknife.BindView;

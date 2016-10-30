@@ -16,7 +16,7 @@ import app.cn.com.fulicenter.bean.CategoryGroupBean;
 import app.cn.com.fulicenter.net.NetDAO;
 import app.cn.com.fulicenter.utils.ConvertUtils;
 import app.cn.com.fulicenter.utils.L;
-import app.cn.com.fulicenter.utils.OkHttpUtils;
+import app.cn.com.fulicenter.net.OkHttpUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -61,9 +61,12 @@ public class CategoryFragment extends BaseFragment {
     }
 
     private void downloadGroup() {
+        L.e("dddddddddddddddddd");
+
         NetDAO.downloadCategoryGroup(mContext, new OkHttpUtils.OnCompleteListener<CategoryGroupBean[]>() {
             @Override
             public void onSuccess(CategoryGroupBean[] result) {
+                L.e("asdfghjkl");
                 L.e("downloadGroup,result="+result);
                 if (result!=null&& result.length>0){
                     ArrayList<CategoryGroupBean> groupList = ConvertUtils.array2List(result);
@@ -79,6 +82,7 @@ public class CategoryFragment extends BaseFragment {
 
             @Override
             public void onError(String error) {
+                L.e("sssssssssssssssssss");
                 L.e("error="+error);
             }
         });

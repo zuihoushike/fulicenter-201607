@@ -2,7 +2,7 @@ package app.cn.com.fulicenter.bean;
 
 import java.io.Serializable;
 
-public class CategoryGroupBean extends CategoryChildBean implements Serializable {
+public class CategoryGroupBean implements Serializable {
 
     /**
      * id : 334

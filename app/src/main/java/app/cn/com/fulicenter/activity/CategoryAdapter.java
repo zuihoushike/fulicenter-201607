@@ -23,7 +23,7 @@ import butterknife.ButterKnife;
 public class CategoryAdapter extends BaseExpandableListAdapter {
     Context mContext;
     ArrayList<CategoryGroupBean> mGroupList;
-    ArrayList<ArrayList<CategoryGroupBean>> mChildList;
+    ArrayList<ArrayList<CategoryChildBean>> mChildList;
 
     public CategoryAdapter(Context context, List<CategoryGroupBean>
             groupList, ArrayList<ArrayList<CategoryGroupBean>> ChildList) {
@@ -31,7 +31,7 @@ public class CategoryAdapter extends BaseExpandableListAdapter {
         mGroupList = new ArrayList<>();
         mGroupList.addAll(groupList);
         mChildList = new ArrayList<>();
-        mChildList.addAll(ChildList);
+        mChildList.addAll(mChildList);
 
     }
 
@@ -53,8 +53,10 @@ public class CategoryAdapter extends BaseExpandableListAdapter {
 
     @Override
     public CategoryChildBean getChild(int groupPosition, int childPosition) {
-        return mChildList != null && mChildList.get(groupPosition) !=
-                null ? mChildList.get(groupPosition).get(childPosition) : null;
+        if(mChildList.get(groupPosition)!=null
+                && mChildList.get(groupPosition).get(childPosition)!=null)
+            return mChildList.get(groupPosition).get(childPosition);
+        return null;
     }
 
     @Override
@@ -109,7 +111,7 @@ public class CategoryAdapter extends BaseExpandableListAdapter {
             holder.layoutCategoryChild.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ArrayList<CategoryGroupBean> list=mChildList.get(groupPosition);
+                    ArrayList<CategoryChildBean> list=mChildList.get(groupPosition);
                     String groupName=mGroupList.get(groupPosition).getName();
                     MFGT.gotoCategoryChildActivity(mContext,child.getId(),groupName,list);
 
@@ -133,7 +135,7 @@ public class CategoryAdapter extends BaseExpandableListAdapter {
         if (mChildList!=null){
             mChildList.clear();
         }
-        mChildList.addAll(childList);
+        mChildList.addAll(mChildList);
         notifyDataSetChanged();
 
     }

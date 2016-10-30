@@ -17,6 +17,7 @@ import app.cn.com.fulicenter.activity.RegisterActivity;
 import app.cn.com.fulicenter.activity.UpdateNickActivity;
 import app.cn.com.fulicenter.activity.UserProfileActivity;
 import app.cn.com.fulicenter.bean.BoutiqueBean;
+import app.cn.com.fulicenter.bean.CategoryChildBean;
 import app.cn.com.fulicenter.bean.CategoryGroupBean;
 
 
@@ -56,7 +57,7 @@ public class MFGT {
         intent.putExtra(I.Boutique.CAT_ID,tag);
         startActivity(context,intent);
     }
-    public static void gotoCategoryChildActivity(Context context, int catId, String groupName, ArrayList<CategoryGroupBean> list){
+    public static void gotoCategoryChildActivity(Context context, int catId, String groupName, ArrayList<CategoryChildBean> list){
         Intent intent = new Intent();
         intent.setClass(context, CategoryChildtivity.class);
         intent.putExtra(I.CategoryChild.CAT_ID,catId);

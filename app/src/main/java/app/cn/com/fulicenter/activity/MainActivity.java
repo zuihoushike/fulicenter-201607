@@ -1,12 +1,10 @@
 package app.cn.com.fulicenter.activity;
 
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
-import android.widget.Filter;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -16,13 +14,10 @@ import app.cn.com.fulicenter.R;
 import app.cn.com.fulicenter.fragment.BoutiqueFragment;
 import app.cn.com.fulicenter.fragment.CategoryFragment;
 import app.cn.com.fulicenter.fragment.NewGoodsFragment;
-import app.cn.com.fulicenter.fragment.PersonalCenterFragment;
 import app.cn.com.fulicenter.utils.L;
 import app.cn.com.fulicenter.utils.MFGT;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import static app.cn.com.fulicenter.utils.MFGT.gotoLogin;
 
 
 public class MainActivity extends BaseActivity {

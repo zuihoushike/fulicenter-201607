@@ -19,7 +19,7 @@ import app.cn.com.fulicenter.utils.CommonUtils;
 import app.cn.com.fulicenter.utils.ConvertUtils;
 import app.cn.com.fulicenter.utils.L;
 import app.cn.com.fulicenter.utils.MFGT;
-import app.cn.com.fulicenter.utils.OkHttpUtils;
+import app.cn.com.fulicenter.net.OkHttpUtils;
 import app.cn.com.fulicenter.view.SpaceItemDecoration;
 import butterknife.BindView;
 import butterknife.ButterKnife;

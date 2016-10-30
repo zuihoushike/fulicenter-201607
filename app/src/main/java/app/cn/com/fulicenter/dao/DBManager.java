@@ -27,7 +27,7 @@ public class DBManager {
     public synchronized boolean saveUser(User user){
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(UserDao.TABLE_COLUMN_NAME,user.getMusername());
+        values.put(UserDao.TABLE_COLUMN_NAME,user.getMuserName());
         values.put(UserDao.TABLE_COLUMN_NICK,user.getMuserNick());
         values.put(UserDao.TABLE_COLUMN_AVATAR_ID,user.getMavatarId());
         values.put(UserDao.TABLE_COLUMN_AVATAR_TYPE,user.getMavatarType());
@@ -48,7 +48,7 @@ public class DBManager {
         Cursor cursor = db.rawQuery(sql,new String[]{username});
         if (cursor.moveToNext()){
             user = new User();
-            user.setMusername(username);
+            user.setMuserName(username);
             user.setMuserNick(cursor.getString(cursor.getColumnIndex(UserDao.TABLE_USER_NAME)));
             user.setMavatarId(cursor.getInt(cursor.getColumnIndex(UserDao.TABLE_COLUMN_AVATAR_ID)));
             user.setMavatarType(cursor.getType(cursor.getColumnIndex(UserDao.TABLE_COLUMN_AVATAR_TYPE)));
@@ -66,7 +66,7 @@ public class DBManager {
         ContentValues values = new ContentValues();
         values.put(UserDao.TABLE_COLUMN_NICK,user.getMuserNick());
         if (db.isOpen()) {
-            result = db.update(UserDao.TABLE_USER_NAME,values, sql, new String[]{user.getMusername()});
+            result = db.update(UserDao.TABLE_USER_NAME,values, sql, new String[]{user.getMuserName()});
         }
         return result>0;
     }

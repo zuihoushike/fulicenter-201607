@@ -1,11 +1,22 @@
 package app.cn.com.fulicenter.bean;
 
 /**
- * Created by 最后时刻 on 2016/10/23.
+ * Created by clawpo on 2016/10/21.
  */
 
 public class User {
-    private String musername;
+
+    /**
+     * muserName : a952700
+     * muserNick : 士大夫
+     * mavatarId : 72
+     * mavatarPath : user_avatar
+     * mavatarSuffix : .jpg
+     * mavatarType : 0
+     * mavatarLastUpdateTime : 1476262984280
+     */
+
+    private String muserName;
     private String muserNick;
     private int mavatarId;
     private String mavatarPath;
@@ -13,20 +24,29 @@ public class User {
     private int mavatarType;
     private String mavatarLastUpdateTime;
 
+
+    public String getMuserName() {
+        return muserName;
+    }
+
+    public void setMuserName(String muserName) {
+        this.muserName = muserName;
+    }
+
+    public String getMuserNick() {
+        return muserNick;
+    }
+
+    public void setMuserNick(String muserNick) {
+        this.muserNick = muserNick;
+    }
+
     public int getMavatarId() {
         return mavatarId;
     }
 
     public void setMavatarId(int mavatarId) {
         this.mavatarId = mavatarId;
-    }
-
-    public String getMavatarLastUpdateTime() {
-        return mavatarLastUpdateTime;
-    }
-
-    public void setMavatarLastUpdateTime(String mavatarLastUpdateTime) {
-        this.mavatarLastUpdateTime = mavatarLastUpdateTime;
     }
 
     public String getMavatarPath() {
@@ -53,28 +73,40 @@ public class User {
         this.mavatarType = mavatarType;
     }
 
-    public String getMusername() {
-        return musername;
+    public String getMavatarLastUpdateTime() {
+        return mavatarLastUpdateTime;
     }
 
-    public void setMusername(String musername) {
-        this.musername = musername;
+    public void setMavatarLastUpdateTime(String mavatarLastUpdateTime) {
+        this.mavatarLastUpdateTime = mavatarLastUpdateTime;
     }
 
-    public String getMuserNick() {
-        return muserNick;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+
+        User user = (User) o;
+
+        if (!getMuserName().equals(user.getMuserName())) return false;
+             return getMavatarLastUpdateTime().equals(user.getMavatarLastUpdateTime());
+
     }
 
-    public void setMuserNick(String muserNick) {
-        this.muserNick = muserNick;
+    @Override
+       public int hashCode() {
+        int result = getMuserName().hashCode();
+               result = 31 * result + getMavatarLastUpdateTime().hashCode();
+               return result;
     }
+
 
     @Override
     public String toString() {
         return "User{" +
-                "mavatarId=" + mavatarId +
-                ", musername='" + musername + '\'' +
+                "muserName='" + muserName + '\'' +
                 ", muserNick='" + muserNick + '\'' +
+                ", mavatarId=" + mavatarId +
                 ", mavatarPath='" + mavatarPath + '\'' +
                 ", mavatarSuffix='" + mavatarSuffix + '\'' +
                 ", mavatarType=" + mavatarType +

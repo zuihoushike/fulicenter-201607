@@ -2,15 +2,12 @@ package app.cn.com.fulicenter.fragment;
 
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 
@@ -24,7 +21,7 @@ import app.cn.com.fulicenter.bean.NewGoodsBean;
 import app.cn.com.fulicenter.utils.CommonUtils;
 import app.cn.com.fulicenter.utils.ConvertUtils;
 import app.cn.com.fulicenter.utils.L;
-import app.cn.com.fulicenter.utils.OkHttpUtils;
+import app.cn.com.fulicenter.net.OkHttpUtils;
 import app.cn.com.fulicenter.view.SpaceItemDecoration;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,15 +33,17 @@ public class NewGoodsFragment extends BaseFragment {
 
     @BindView(R.id.tv_refresh)
     TextView tvRefresh;
-
+    @BindView(R.id.rv)
     RecyclerView rvNewGoods;
     @BindView(R.id.srl)
     SwipeRefreshLayout srl;
+
     MainActivity mContext;
     GoodsAdapter mAdapter;
     ArrayList<NewGoodsBean>mList;
     int pageId=1;
     GridLayoutManager glm;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -140,10 +139,12 @@ public class NewGoodsFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-        srl.setColorSchemeColors(getResources().getColor(R.color.google_blue),
+        srl.setColorSchemeColors(
+                getResources().getColor(R.color.google_blue),
                 getResources().getColor(R.color.google_yellow),
                 getResources().getColor(R.color.google_red),
-                getResources().getColor(R.color.google_green));
+                getResources().getColor(R.color.google_green)
+        );
         glm = new GridLayoutManager(mContext, I.COLUM_NUM);
         rvNewGoods.setLayoutManager(glm);
         rvNewGoods.setHasFixedSize(true);

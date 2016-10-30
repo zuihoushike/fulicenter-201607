@@ -2,7 +2,6 @@ package app.cn.com.fulicenter.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,7 +13,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import app.cn.com.fulicenter.Adapter.BoutiqueAdapter;
-import app.cn.com.fulicenter.I;
 import app.cn.com.fulicenter.R;
 import app.cn.com.fulicenter.activity.MainActivity;
 import app.cn.com.fulicenter.bean.BoutiqueBean;
@@ -22,7 +20,7 @@ import app.cn.com.fulicenter.net.NetDAO;
 import app.cn.com.fulicenter.utils.CommonUtils;
 import app.cn.com.fulicenter.utils.ConvertUtils;
 import app.cn.com.fulicenter.utils.L;
-import app.cn.com.fulicenter.utils.OkHttpUtils;
+import app.cn.com.fulicenter.net.OkHttpUtils;
 import app.cn.com.fulicenter.view.SpaceItemDecoration;
 import butterknife.BindView;
 import butterknife.ButterKnife;

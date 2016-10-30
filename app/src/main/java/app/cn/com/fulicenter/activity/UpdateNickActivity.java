@@ -1,6 +1,5 @@
 package app.cn.com.fulicenter.activity;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -16,7 +15,7 @@ import app.cn.com.fulicenter.net.NetDAO;
 import app.cn.com.fulicenter.utils.CommonUtils;
 import app.cn.com.fulicenter.utils.L;
 import app.cn.com.fulicenter.utils.MFGT;
-import app.cn.com.fulicenter.utils.OkHttpUtils;
+import app.cn.com.fulicenter.net.OkHttpUtils;
 import app.cn.com.fulicenter.utils.ResultUtils;
 import app.cn.com.fulicenter.view.DisplayUtils;
 import butterknife.BindView;
@@ -78,7 +77,7 @@ public class UpdateNickActivity extends BaseActivity {
         final ProgressDialog pd = new ProgressDialog(mContext);
         pd.setMessage(getResources().getString(R.string.update_user_nick));
         pd.show();
-        NetDAO.updateNick(mContext, user.getMusername(), nick, new OkHttpUtils.OnCompleteListener<String>() {
+        NetDAO.updateNick(mContext, user.getMuserName(), nick, new OkHttpUtils.OnCompleteListener<String>() {
             @Override
             public void onSuccess(String s) {
                 Result result = ResultUtils.getResultFromJson(s,User.class);

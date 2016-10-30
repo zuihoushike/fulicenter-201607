@@ -21,14 +21,12 @@ import app.cn.com.fulicenter.utils.CommonUtils;
 import app.cn.com.fulicenter.utils.ConvertUtils;
 import app.cn.com.fulicenter.utils.L;
 import app.cn.com.fulicenter.utils.MFGT;
-import app.cn.com.fulicenter.utils.OkHttpUtils;
+import app.cn.com.fulicenter.net.OkHttpUtils;
 import app.cn.com.fulicenter.view.CatChildFilterButton;
 import app.cn.com.fulicenter.view.SpaceItemDecoration;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-import static android.R.id.list;
 
 public class CategoryChildtivity extends BaseActivity {
     @BindView(R.id.tv_refresh)

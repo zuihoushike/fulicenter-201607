@@ -362,8 +362,8 @@ public class ImageLoader {
 
     public static String getAvatarUrl(User user){
         if (user==null) {
-            String url = I.DOWNLOAD_AVATAR_URL + I.NAME_OR_HXID + "=" + user.getMusername()
-                    + I.AND + I.AVATAR_TYPE + "=" + user.getMavatarType() + I.AND + I.AND + I.AVATAR_SUFFIX_JPG + I.AVATAR_SUFFIX_PNG
+            String url = I.DOWNLOAD_AVATAR_URL + I.NAME_OR_HXID + "=" + user.getMuserName()
+                    + I.AND + I.AVATAR_TYPE + "=" + user.getMavatarType() + I.AND + I.AND + I.AVATAR_SUFFIX
                     + "=" + user.getMavatarSuffix() + I.AND + "width=200&&height=200";
             L.e("useravatar=" + url);
             return url;

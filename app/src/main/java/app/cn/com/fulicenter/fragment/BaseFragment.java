@@ -17,13 +17,15 @@ public abstract class BaseFragment extends Fragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        L.e("NewGoodsFragment.onCreateView");
+        L.e("BaseFragment.onCreate");
         initView();
         initData();
         setListener();
         return super.onCreateView(inflater, container, savedInstanceState);
     }
-    protected abstract void initView();
-    protected abstract void initData();
+
+    protected abstract void  initView();
+    protected  abstract  void initData();
     protected abstract void setListener();
+
 }

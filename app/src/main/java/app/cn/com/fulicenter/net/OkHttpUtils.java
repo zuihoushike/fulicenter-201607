@@ -1,4 +1,4 @@
-package app.cn.com.fulicenter.utils;
+package app.cn.com.fulicenter.net;
 
 import android.content.Context;
 import android.os.Handler;
@@ -22,6 +22,7 @@ import java.util.concurrent.TimeUnit;
 import app.cn.com.fulicenter.FuLiCenterApplication;
 import app.cn.com.fulicenter.I;
 import app.cn.com.fulicenter.bean.Result;
+import app.cn.com.fulicenter.utils.L;
 import okhttp3.Cache;
 import okhttp3.Call;
 import okhttp3.Callback;

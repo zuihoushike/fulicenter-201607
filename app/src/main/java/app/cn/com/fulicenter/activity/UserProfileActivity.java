@@ -50,7 +50,7 @@ public class UserProfileActivity extends BaseActivity {
         user = FuLiCenterApplication.getUser();
         if (user!=null){
             ImageLoader.setAvatar(ImageLoader.getAvatarUrl(user),mContext,mIvUserProfileAvatar);
-            mTvUserProfileName.setText(user.getMusername());
+            mTvUserProfileName.setText(user.getMuserName());
             mTvUserProfileNick.setText(user.getMuserNick());
         }else {
             if (user!=null){
@@ -113,7 +113,7 @@ public class UserProfileActivity extends BaseActivity {
         user  = FuLiCenterApplication.getUser();
         if (user!=null){
             ImageLoader.setAvatar(ImageLoader.getAvatarUrl(user),mContext,mIvUserProfileAvatar);
-            mTvUserProfileName.setText(user.getMusername());
+            mTvUserProfileName.setText(user.getMuserName());
             mTvUserProfileNick.setText(user.getMuserNick());
         }
     }
