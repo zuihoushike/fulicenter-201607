@@ -14,6 +14,7 @@ import app.cn.com.fulicenter.activity.CollectsActivity;
 import app.cn.com.fulicenter.activity.GoodsDetailActivity;
 import app.cn.com.fulicenter.activity.LoginActivity;
 import app.cn.com.fulicenter.activity.MainActivity;
+import app.cn.com.fulicenter.activity.OrderActivity;
 import app.cn.com.fulicenter.activity.RegisterActivity;
 import app.cn.com.fulicenter.activity.UpdateNickActivity;
 import app.cn.com.fulicenter.activity.UserProfileActivity;
@@ -99,5 +100,10 @@ public class MFGT {
         Intent intent = new Intent();
         intent.setClass(context,LoginActivity.class);
         startActivityForResult(context,intent,I.REQUEST_CODE_LOGIN_FROM_CART);
+    }
+
+    public static void gotoBuy(Activity context,String cartIds){
+        Intent intent = new Intent(context, OrderActivity.class).putExtra(I.Cart.ID,cartIds);
+        startActivity(context,intent);
     }
 }
