@@ -2,13 +2,17 @@ package app.cn.com.fulicenter.activity;
 
 import android.os.Bundle;
 import android.webkit.WebView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import app.cn.com.fulicenter.FuLiCenterApplication;
 import app.cn.com.fulicenter.I;
 import app.cn.com.fulicenter.R;
 import app.cn.com.fulicenter.bean.AlbumsBean;
 import app.cn.com.fulicenter.bean.GoodsDetailsBean;
+import app.cn.com.fulicenter.bean.MessageBean;
+import app.cn.com.fulicenter.bean.User;
 import app.cn.com.fulicenter.net.NetDAO;
 import app.cn.com.fulicenter.utils.CommonUtils;
 import app.cn.com.fulicenter.utils.L;
@@ -45,6 +49,9 @@ public class GoodsDetailActivity extends BaseActivity {
 
     int goodsId;
     GoodsDetailActivity mContext;
+    boolean isCollected = false;
+    @BindView(R.id.iv_good_collect)
+    ImageView mIvGoodCollect;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,8 +76,8 @@ public class GoodsDetailActivity extends BaseActivity {
         NetDAO.downloadGoodsDetail(mContext, goodsId, new OkHttpUtils.OnCompleteListener<GoodsDetailsBean>() {
             @Override
             public void onSuccess(GoodsDetailsBean result) {
-                L.i("details="+result);
-                if(result!=null){
+                L.i("details=" + result);
+                if (result != null) {
                     showGoodDetails(result);
                 }else{
                     finish();
@@ -91,12 +98,12 @@ public class GoodsDetailActivity extends BaseActivity {
         mTvGoodName.setText(details.getGoodsName());
         mTvGoodPriceCurrent.setText(details.getCurrencyPrice());
         mTvGoodPriceShop.setText(details.getShopPrice());
-        mSalv.startPlayLoop(mIndicator,getAlbumImgUrl(details),getAlbumImgCount(details));
-        mWvGoodBrief.loadDataWithBaseURL(null,details.getGoodsBrief(), I.TEXT_HTML,I.UTF_8,null);
+        mSalv.startPlayLoop(mIndicator, getAlbumImgUrl(details), getAlbumImgCount(details));
+        mWvGoodBrief.loadDataWithBaseURL(null, details.getGoodsBrief(), I.TEXT_HTML, I.UTF_8, null);
     }
 
     private int getAlbumImgCount(GoodsDetailsBean details) {
-        if(details.getProperties()!=null && details.getProperties().length>0) {
+        if (details.getProperties() != null && details.getProperties().length > 0) {
             return details.getProperties()[0].getAlbums().length;
         }
         return 0;
@@ -119,9 +126,44 @@ public class GoodsDetailActivity extends BaseActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        isCollected();
+    }
+
     @OnClick(R.id.backClickArea)
     public void onBackClick(){
         MFGT.finish(this);
     }
 
+    private void isCollected() {
+        User user = FuLiCenterApplication.getUser();
+        if (user != null) {
+            NetDAO.isColected(mContext, user.getMuserName(), goodsId, new OkHttpUtils.OnCompleteListener<MessageBean>() {
+                @Override
+                public void onSuccess(MessageBean result) {
+                    if (result != null && result.isSuccess()) {
+                        isCollected = true;
+                    }else{
+                        isCollected = false;
+                    }
+                    updateGoodsCollectStatus();
+                }
+                @Override
+                public void onError(String error) {
+                    isCollected = false;
+                    updateGoodsCollectStatus();
+                }
+            });
+        }
+        updateGoodsCollectStatus();
+    }
+    private void updateGoodsCollectStatus() {
+        if (isCollected) {
+            mIvGoodCollect.setImageResource(R.mipmap.bg_collect_out);
+        } else {
+            mIvGoodCollect.setImageResource(R.mipmap.bg_collect_in);
+        }
+    }
 }
