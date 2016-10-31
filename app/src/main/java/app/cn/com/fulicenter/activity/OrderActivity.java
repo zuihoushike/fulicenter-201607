@@ -19,9 +19,11 @@ import app.cn.com.fulicenter.FuLiCenterApplication;
 import app.cn.com.fulicenter.I;
 import app.cn.com.fulicenter.R;
 import app.cn.com.fulicenter.bean.CartBean;
+import app.cn.com.fulicenter.bean.MessageBean;
 import app.cn.com.fulicenter.bean.User;
 import app.cn.com.fulicenter.net.NetDAO;
 import app.cn.com.fulicenter.net.OkHttpUtils;
+import app.cn.com.fulicenter.utils.CommonUtils;
 import app.cn.com.fulicenter.utils.L;
 import app.cn.com.fulicenter.utils.ResultUtils;
 import app.cn.com.fulicenter.view.DisplayUtils;
@@ -60,7 +62,7 @@ public class OrderActivity extends BaseActivity {
         mList = new ArrayList<>();
         super.onCreate(savedInstanceState);
         //设置需要使用的支付方式
-        PingppOne.enableChannels(new String[]{"wx", "alipay", "upacp", "bfb", "jdpay_wap"});、
+        PingppOne.enableChannels(new String[]{"wx", "alipay", "upacp", "bfb", "jdpay_wap"});
 
         // 提交数据的格式，默认格式为json
         // PingppOne.CONTENT_TYPE = "application/x-www-form-urlencoded";
@@ -69,7 +71,7 @@ public class OrderActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        DisplayUtils.initBackWithTitle(mContext,getString(R.string.confirm_order));
+//        DisplayUtils.initBackWithTitle(mContext,getString(R.string.confirm_order));
     }
 
     @Override
@@ -162,6 +164,33 @@ public class OrderActivity extends BaseActivity {
                     e.printStackTrace();
                 }
             }
+            int resultCode = data.getExtras().getInt("code");
+            switch (resultCode){
+                case 1:
+                    paySuccess();
+                    CommonUtils.showLongToast(R.string.pingpp_title_activity_pay_sucessed);
+                    break;
+                case -1:
+                    CommonUtils.showLongToast(R.string.pingpp_pay_failed);
+                    finish();
+                    break;
+            }
+        }
+    }
+
+    private void paySuccess() {
+        for (String id:ids){
+            NetDAO.deleteCart(mContext, Integer.valueOf(id), new OkHttpUtils.OnCompleteListener<MessageBean>() {
+                @Override
+                public void onSuccess(MessageBean result) {
+                    L.e(TAG,"result"+result);
+                }
+                @Override
+                public void onError(String error) {
+                }
+            });
+        }
+        finish();
         }
     }
 }
