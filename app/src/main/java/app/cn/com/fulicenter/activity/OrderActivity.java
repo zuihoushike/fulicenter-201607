@@ -189,7 +189,6 @@ public class OrderActivity extends BaseActivity {
                 public void onError(String error) {
                 }
             });
-        }
         finish();
         }
     }
