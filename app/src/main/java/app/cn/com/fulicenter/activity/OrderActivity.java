@@ -4,10 +4,14 @@ package app.cn.com.fulicenter.activity;
  * Created by 最后时刻 on 2016/10/30.
  */
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -46,6 +50,8 @@ public class OrderActivity extends BaseActivity {
     String[] ids = new String[]{};
     int rankPrice = 0;
 
+    private static String URL = "http://218.244.151.190/demo/charge";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_order);
@@ -53,6 +59,12 @@ public class OrderActivity extends BaseActivity {
         mContext = this;
         mList = new ArrayList<>();
         super.onCreate(savedInstanceState);
+        //设置需要使用的支付方式
+        PingppOne.enableChannels(new String[]{"wx", "alipay", "upacp", "bfb", "jdpay_wap"});、
+
+        // 提交数据的格式，默认格式为json
+        // PingppOne.CONTENT_TYPE = "application/x-www-form-urlencoded";
+
     }
 
     @Override
@@ -119,5 +131,37 @@ public class OrderActivity extends BaseActivity {
 
     @OnClick(R.id.tv_order_buy)
     public void onClick() {
+    }
+
+
+    public void handlePaymentResult(Intent data) {
+        if (data != null) {
+
+            // result：支付结果信息
+            // code：支付结果码
+            //-2:用户自定义错误
+            //-1：失败
+            // 0：取消
+            // 1：成功
+            // 2:应用内快捷支付支付结果
+
+            L.e(TAG,"code="+data.getExtras().getInt("code"));
+            if (data.getExtras().getInt("code") != 2) {
+                PingppLog.d(data.getExtras().getString("result") + "  " + data.getExtras().getInt("code"));
+            } else {
+                String result = data.getStringExtra("result");
+                try {
+                    JSONObject resultJson = new JSONObject(result);
+                    if (resultJson.has("error")) {
+                        result = resultJson.optJSONObject("error").toString();
+                    } else if (resultJson.has("success")) {
+                        result = resultJson.optJSONObject("success").toString();
+                    }
+                    L.e(TAG,result);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }
